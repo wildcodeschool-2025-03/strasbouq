@@ -10,7 +10,7 @@ function Header() {
       <section className="flex items-center justify-between">
         <article>
           <button type="button" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            <i className="bi bi-list"></i>
+            <i className="bi bi-list" />
           </button>
           {isMenuOpen && (
             <nav>
@@ -39,10 +39,10 @@ function Header() {
         </article>
         <article>
           <Link to="./Compte">
-            <i className="bi bi-person"></i>
+            <i className="bi bi-person" />
           </Link>
           <Link to="./Panier">
-            <i className="bi bi-cart"></i>
+            <i className="bi bi-cart" />
           </Link>
         </article>
       </section>
