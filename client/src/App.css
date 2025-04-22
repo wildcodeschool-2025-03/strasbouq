@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
+}
+
+@theme {
+  --color-primary: #eaded5;
+  --color-secondary: #ce9170;
+  --color-tertiary: #f8f8f8;
 }
