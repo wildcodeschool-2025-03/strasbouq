@@ -18,7 +18,7 @@ function Account_management() {
     setPasswordInput(event.target.value);
   };
 
-  // Fonction de création d'un nouveau compte utilisateur
+  // --------------------------Fonction de création d'un nouveau compte utilisateur-------------------------------------------
   const createNewAccount = () => {
     const account = { mail: mailInput, password: passwordInput };
 
@@ -63,7 +63,7 @@ function Account_management() {
     setPasswordInput("");
   };
 
-  // Fonction de connexion au compte utilisateur
+  // --------------------------------Fonction de connexion au compte utilisateur--------------------------------------------
   const loginToAccount = () => {
     // Si c'est le compte administrateur
     if (mailInput === "admin" && passwordInput === "admin") {
@@ -94,6 +94,17 @@ function Account_management() {
     }
 
     alert("Aucun compte trouvé - vérifiez votre login ou mot de passe");
+  };
+
+  // -----------------------------------Fonction déconnexion---------------------------------------------------------
+  const logoutAccount = () => {
+    const storedData = localStorage.getItem("currentUser");
+
+    if (storedData != null) {
+      localStorage.removeItem("currentUser");
+    }
+
+    alert("Bien déconnecté");
   };
 
   return (
@@ -136,6 +147,14 @@ function Account_management() {
         className="border-2 border-amber-950"
       >
         Supprimer la BDD utilisateur
+      </button>
+
+      <button
+        type="button"
+        onClick={logoutAccount}
+        className="border-2 border-amber-950"
+      >
+        Déconnection
       </button>
     </>
   );
