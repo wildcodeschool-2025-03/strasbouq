@@ -1,0 +1,12 @@
+Variables enregistrées :
+
+1) "Base de donnée" utilisateurs
+
+Tableau d'objet users = [{mail, password}]
+
+2) Utilisateur actuel
+
+Variable currentUser qui contient :
+
+ soit le string "admin"
+ soit le tableau d'objet user [{mail, password}]
