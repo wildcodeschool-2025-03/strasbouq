@@ -7,19 +7,32 @@ function Header() {
 
   return (
     <>
-      <section className="flex items-center justify-between px-4 py-2">
+      <section className="grid grid-cols-[auto_1fr_auto] items-center px-4 py-2">
         {/* Menu Burger */}
-        <article className="w-1/3">
+        <article className="justify-self-start">
           <button
             type="button"
-            className="pl-2"
+            className="pl-2 block md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <i className="bi bi-list text-3xl" />
           </button>
+          {/* Liste menu grand écran responsive */}
+
+          <nav className="pl-10 hidden md:block">
+            <ul className="flex gap-16">
+              <li>
+                <Link to="/">Accueil</Link>
+              </li>
+              <li>
+                <Link to="./Catalogue">Catalogue</Link>
+              </li>
+            </ul>
+          </nav>
+          {/* Menu Burger */}
           {isMenuOpen && (
-            <nav>
-              <ul className="list-none">
+            <nav className="md:hidden">
+              <ul className="list-none space-y-2">
                 <li>
                   <Link to="/">Accueil</Link>
                 </li>
@@ -34,19 +47,22 @@ function Header() {
           )}
         </article>
 
-        {/* Logo centré */}
-        <article className="w-1/3 flex justify-center">
+        {/* Logo */}
+        <article className="justify-self-center">
           <Link to="/">
             <img
               src="./assets/Logo-jardin-alsacien.png"
               alt="Le Jardin Alsacien"
-              className="w-auto h-[100px] object-contain mt-4"
+              className="w-auto h-[115px] object-contain mt-4"
             />
           </Link>
         </article>
 
         {/* Icônes */}
-        <article className="w-1/3 pr-4 flex justify-end gap-4 items-center">
+        <article className="flex flex-col md:flex-row justify-self-end items-center md:pr-10">
+          <div className="hidden md:block md:mr-16">
+            <Link to="./About">À propos</Link>
+          </div>
           <Link to="./Compte">
             <i className="bi bi-person text-2xl" />
           </Link>
