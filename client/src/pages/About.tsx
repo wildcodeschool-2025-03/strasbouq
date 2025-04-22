@@ -1,6 +1,7 @@
 import Valeurs from "../components/about/Valeurs";
 
 function About() {
+
   const tableauValeurs = [
     {
       title: "1. Amitié & Passion",
@@ -61,6 +62,7 @@ function About() {
       </section>
     </section>
   );
+
 }
 
 export default About;
