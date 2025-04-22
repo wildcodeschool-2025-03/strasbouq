@@ -31,6 +31,7 @@ function Account_management() {
 
     // Si aucun utilisateur n'existe encore, crée un tableau contenant l'objet utilisateur
     if (storedData === null) {
+      alert(`compte crée: ${mailInput} ${passwordInput}`);
       localStorage.setItem("users", JSON.stringify([account]));
     }
 
@@ -62,20 +63,79 @@ function Account_management() {
     setPasswordInput("");
   };
 
+  // Fonction de connexion au compte utilisateur
+  const loginToAccount = () => {
+    // Si c'est le compte administrateur
+    if (mailInput === "admin" && passwordInput === "admin") {
+      localStorage.setItem("currentUser", JSON.stringify("admin"));
+      alert("Bienvenue administrateur !");
+      return;
+    }
+
+    const storedData = localStorage.getItem("users");
+
+    // Si aucun utilisateur n'existe dans la base de donnée
+    if (storedData === null) {
+      alert("Aucun compte existant");
+      return;
+    }
+
+    // Si un ou plusieurs compte existent déja...
+    const users = JSON.parse(storedData);
+
+    for (const user of users) {
+      // Vérifie si les informations de connexion matchent
+
+      if (user.mail === mailInput && user.password === passwordInput) {
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        alert(`Bienvenue ${user.mail}`);
+        return;
+      }
+    }
+
+    alert("Aucun compte trouvé - vérifiez votre login ou mot de passe");
+  };
+
   return (
     <>
       <p>Adresse mail :</p>
-      <input type="text" value={mailInput} onChange={handleMailInputChange} />
+      <input
+        type="text"
+        value={mailInput}
+        onChange={handleMailInputChange}
+        className="border-2 border-amber-950"
+      />
 
       <p>Mot de passe :</p>
       <input
         type="text"
         value={passwordInput}
         onChange={handlePasswordInputChange}
+        className="border-2 border-amber-950"
       />
 
-      <button type="button" onClick={createNewAccount}>
-        Créer un nouvel utilisateur{" "}
+      <button
+        type="button"
+        onClick={createNewAccount}
+        className="border-2 border-amber-950"
+      >
+        Créer un nouvel utilisateur
+      </button>
+
+      <button
+        type="button"
+        onClick={loginToAccount}
+        className="border-2 border-amber-950"
+      >
+        Se connecter
+      </button>
+
+      <button
+        type="button"
+        onClick={() => localStorage.removeItem("users")}
+        className="border-2 border-amber-950"
+      >
+        Supprimer la BDD utilisateur
       </button>
     </>
   );
