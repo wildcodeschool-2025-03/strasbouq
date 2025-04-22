@@ -95,7 +95,7 @@ function Contact() {
             <label htmlFor="message">Message :</label>
             <textarea
               id="message"
-              name="message" 
+              name="message"
               rows={7}
               className="bg-[#f8f8f8] border-2 border-secondary rounded-md p-2"
             />
