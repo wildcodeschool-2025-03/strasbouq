@@ -1,12 +1,18 @@
 import emailjs from "@emailjs/browser";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Contact() {
   const form = useRef<HTMLFormElement>(null);
+  const [loading, setLoading] = useState(false);
+
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!form.current) return;
+
+    setLoading(true);
 
     emailjs
       .sendForm(
@@ -18,15 +24,17 @@ function Contact() {
       .then(
         (result) => {
           console.log(result.text);
-          alert("Votre message a bien été envoyé !");
+          toast.success("Votre message a bien été envoyé !");
+          form.current?.reset();
         },
         (error) => {
           console.log(error.text);
-          alert("Une erreur est survenue, veuillez réessayer plus tard.");
+          toast.error("Une erreur est survenue, veuillez réessayer plus tard.");
         },
-      );
-
-    form.current.reset();
+      )
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -87,16 +95,22 @@ function Contact() {
             <label htmlFor="message">Message :</label>
             <textarea
               id="message"
-              name="message"
+              name="message" 
               rows={7}
               className="bg-[#f8f8f8] border-2 border-secondary rounded-md p-2"
             />
-            <button type="submit" className="bg-secondary p-2 rounded-md">
-              Envoyer
+            <button
+              type="submit"
+              disabled={loading}
+              className="bg-secondary p-2 rounded-md hover:opacity-90 "
+            >
+              {loading ? "Envoi en cours..." : "Envoyer"}
             </button>
           </form>
         </section>
       </section>
+
+      <ToastContainer position="top-right" autoClose={3000} />
     </>
   );
 }
