@@ -22,7 +22,7 @@ function Footer() {
       </section>
       <section className="flex flex-col items-center gap-1">
         <Link to="/contact">Contact</Link>
-        <Link to="/mentions_legales">Mentions légales</Link>
+        <Link to="/mentions">Mentions légales</Link>
         <Link to="/CGV">CGV</Link>
 
         <p className="font-semibold">

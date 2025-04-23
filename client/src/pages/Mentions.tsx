@@ -1,9 +1,9 @@
 function Legales() {
   return (
-    <>
-      <h1 className="text-center text-primary m-6"> Mentions légales</h1>
+    <section className="bg-white">
+      <h1 className="text-center text-secondary text-2xl p-6"> Mentions légales</h1>
 
-      <p>
+      <p className="text-justify p-8">
         Éditeur du site Nom du responsable / entreprise : Les Jardin Alsacien
         <br />
         Forme juridique : SARL
@@ -54,7 +54,7 @@ function Legales() {
         cookies. Vous pouvez à tout moment modifier vos préférences dans les
         paramètres de votre navigateur.
       </p>
-    </>
+    </section>
   );
 }
 
