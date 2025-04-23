@@ -12,7 +12,7 @@ function Catalogue() {
   }, []);
 
   return (
-    <section className="grid md:grid-cols-2 xl:grid-cols-3 gap-15">
+    <section className="grid md:grid-cols-2 xl:grid-cols-3 gap-20 pt-20 pb-20">
       {items?.map((item) => (
         <Contenu item={item} key={item} />
       ))}
