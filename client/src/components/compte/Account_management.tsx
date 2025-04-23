@@ -1,6 +1,9 @@
 import { useState } from "react";
 
 function Account_management() {
+  const ADMIN_LOGIN = import.meta.env.VITE_ADMIN_LOGIN;
+  const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
+
   // State pour gérer les inputs de manière robuste
   const [mailInput, setMailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
@@ -18,7 +21,7 @@ function Account_management() {
     setPasswordInput(event.target.value);
   };
 
-  // Fonction de création d'un nouveau compte utilisateur
+  // --------------------------Fonction de création d'un nouveau compte utilisateur-------------------------------------------
   const createNewAccount = () => {
     const account = { mail: mailInput, password: passwordInput };
 
@@ -63,10 +66,10 @@ function Account_management() {
     setPasswordInput("");
   };
 
-  // Fonction de connexion au compte utilisateur
+  // --------------------------------Fonction de connexion au compte utilisateur--------------------------------------------
   const loginToAccount = () => {
     // Si c'est le compte administrateur
-    if (mailInput === "admin" && passwordInput === "admin") {
+    if (mailInput === ADMIN_LOGIN && passwordInput === ADMIN_PASSWORD) {
       localStorage.setItem("currentUser", JSON.stringify("admin"));
       alert("Bienvenue administrateur !");
       return;
@@ -96,23 +99,36 @@ function Account_management() {
     alert("Aucun compte trouvé - vérifiez votre login ou mot de passe");
   };
 
+  // -----------------------------------Fonction déconnexion---------------------------------------------------------
+  const logoutAccount = () => {
+    const storedData = localStorage.getItem("currentUser");
+
+    if (storedData != null) {
+      localStorage.removeItem("currentUser");
+    }
+
+    alert("Bien déconnecté");
+  };
+
   return (
     <>
-      <p>Adresse mail :</p>
-      <input
-        type="text"
-        value={mailInput}
-        onChange={handleMailInputChange}
-        className="border-2 border-amber-950"
-      />
+      <section className="flex flex-col mb-8">
+        <p>Adresse mail :</p>
+        <input
+          type="text"
+          value={mailInput}
+          onChange={handleMailInputChange}
+          className="border-2 border-amber-950"
+        />
 
-      <p>Mot de passe :</p>
-      <input
-        type="text"
-        value={passwordInput}
-        onChange={handlePasswordInputChange}
-        className="border-2 border-amber-950"
-      />
+        <p>Mot de passe :</p>
+        <input
+          type="text"
+          value={passwordInput}
+          onChange={handlePasswordInputChange}
+          className="border-2 border-amber-950"
+        />
+      </section>
 
       <button
         type="button"
@@ -136,6 +152,14 @@ function Account_management() {
         className="border-2 border-amber-950"
       >
         Supprimer la BDD utilisateur
+      </button>
+
+      <button
+        type="button"
+        onClick={logoutAccount}
+        className="border-2 border-amber-950"
+      >
+        Déconnection
       </button>
     </>
   );

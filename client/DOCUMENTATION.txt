@@ -8,5 +8,8 @@ Tableau d'objet users = [{mail, password}]
 
 Variable currentUser qui contient :
 
- soit le string "admin"
+ soit le string "admin" (mot de passe "admin" et adresse mail "admin")
  soit le tableau d'objet user [{mail, password}]
+
+/!\ Si au montage du composant on a besoin de chercher l'info dans une variable stockée, ALORS il faut faire la vérification dans un UseEffect !
+Ex : une page qui afffiche différents contenus selon le compte utilisateur (commandes passées...)
