@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
-function Account_management() {
+function Account_management({ onClose }: { onClose: () => void }) {
+  const navigate = useNavigate();
   const ADMIN_LOGIN = import.meta.env.VITE_ADMIN_LOGIN;
   const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
 
@@ -34,7 +36,6 @@ function Account_management() {
 
     // Si aucun utilisateur n'existe encore, crée un tableau contenant l'objet utilisateur
     if (storedData === null) {
-      alert(`compte crée: ${mailInput} ${passwordInput}`);
       localStorage.setItem("users", JSON.stringify([account]));
     }
 
@@ -59,6 +60,9 @@ function Account_management() {
       // Si non, on crée le nouveau compte
       users.push(account);
       localStorage.setItem("users", JSON.stringify(users));
+      alert(
+        `Votre compte a bien été crée - login: ${mailInput}, mot de passe: ${passwordInput}`,
+      );
     }
 
     // Nettoie les inputs une fois le bouton cliqué
@@ -72,6 +76,11 @@ function Account_management() {
     if (mailInput === ADMIN_LOGIN && passwordInput === ADMIN_PASSWORD) {
       localStorage.setItem("currentUser", JSON.stringify("admin"));
       alert("Bienvenue administrateur !");
+
+      // Passe à la page "administration" et ferme la modale
+      navigate("/Administration");
+      onClose();
+
       return;
     }
 
@@ -91,7 +100,12 @@ function Account_management() {
 
       if (user.mail === mailInput && user.password === passwordInput) {
         localStorage.setItem("currentUser", JSON.stringify(user));
-        alert(`Bienvenue ${user.mail}`);
+
+        // Passe à la page "mon compte" et ferme la modale
+        alert(`Bienvenue ${mailInput}`);
+        navigate("/Compte");
+        onClose();
+
         return;
       }
     }
@@ -112,22 +126,30 @@ function Account_management() {
 
   return (
     <>
-      <section className="flex flex-col mb-8">
-        <p>Adresse mail :</p>
-        <input
-          type="text"
-          value={mailInput}
-          onChange={handleMailInputChange}
-          className="border-2 border-amber-950"
-        />
+      <h2 className="text-2xl font-bold text-secondary text-center mb-8">
+        Se connecter à mon compte
+      </h2>
 
-        <p>Mot de passe :</p>
-        <input
-          type="text"
-          value={passwordInput}
-          onChange={handlePasswordInputChange}
-          className="border-2 border-amber-950"
-        />
+      <section className="flex flex-col mb-8">
+        <section className="flex justify-between">
+          <p>Adresse mail :</p>
+          <input
+            type="text"
+            value={mailInput}
+            onChange={handleMailInputChange}
+            className="border-2 border-amber-950"
+          />
+        </section>
+
+        <section className="flex justify-between">
+          <p>Mot de passe :</p>
+          <input
+            type="text"
+            value={passwordInput}
+            onChange={handlePasswordInputChange}
+            className="border-2 border-amber-950"
+          />
+        </section>
       </section>
 
       <button
@@ -135,7 +157,7 @@ function Account_management() {
         onClick={createNewAccount}
         className="border-2 border-amber-950"
       >
-        Créer un nouvel utilisateur
+        Créer un nouveau compte
       </button>
 
       <button
