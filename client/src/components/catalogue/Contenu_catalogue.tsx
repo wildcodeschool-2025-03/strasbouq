@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import Catalogue from "../../pages/Catalogue";
+import { useState } from "react";
 
 interface itemsContenu {
+  id: number;
   nom: string;
   description: string;
   prix: number;
@@ -27,7 +27,9 @@ function Contenu({ item }: ContenuProps) {
       <button type="button" onClick={handleClick}>
         {!isFavorite ? "🖤" : "❤️"}
       </button>
-      <button className="bg-[#CE9170] rounded-md" type="button">Commander</button>
+      <button className="bg-[#CE9170] rounded-md" type="button">
+        Commander
+      </button>
     </section>
   );
 }
