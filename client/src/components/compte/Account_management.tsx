@@ -1,6 +1,9 @@
 import { useState } from "react";
 
 function Account_management() {
+  const ADMIN_LOGIN = import.meta.env.VITE_ADMIN_LOGIN;
+  const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
+
   // State pour gérer les inputs de manière robuste
   const [mailInput, setMailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
@@ -66,7 +69,7 @@ function Account_management() {
   // --------------------------------Fonction de connexion au compte utilisateur--------------------------------------------
   const loginToAccount = () => {
     // Si c'est le compte administrateur
-    if (mailInput === "admin" && passwordInput === "admin") {
+    if (mailInput === ADMIN_LOGIN && passwordInput === ADMIN_PASSWORD) {
       localStorage.setItem("currentUser", JSON.stringify("admin"));
       alert("Bienvenue administrateur !");
       return;
