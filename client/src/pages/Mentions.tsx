@@ -1,8 +1,9 @@
 function Legales() {
   return (
     <section className="bg-white">
-      <h1 className="text-center text-secondary text-2xl p-6"> Mentions légales</h1>
-
+      <h1 className="text-center text-secondary text-2xl p-6">
+        Mentions légales
+      </h1>
       <p className="text-justify p-8">
         Éditeur du site Nom du responsable / entreprise : Les Jardin Alsacien
         <br />
