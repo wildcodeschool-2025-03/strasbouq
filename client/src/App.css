@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
 
 @theme {
@@ -18,5 +19,4 @@
     width: 60rem;
     margin: 0 auto;
   }
-
 }
