@@ -91,7 +91,11 @@ function Header() {
           </div>
 
           {/* Ouverture de la modale ou passage à la page "mon compte" selon que l'on soit connecté ou non*/}
-          <button type="button" onClick={handleAccountClick} className="mr-4">
+          <button
+            type="button"
+            onClick={handleAccountClick}
+            className="md:mr-4"
+          >
             {/* Affiche une icone différente pour dire si l'on est connecté ou non  ---- A COMPLETER pour 100% des cas*/}
             {localStorage.getItem("currentUser") ? (
               <i className="bi bi-person-fill-check text-2xl" />
@@ -100,7 +104,7 @@ function Header() {
             )}
           </button>
 
-          <Link to="./Panier">
+          <Link to="./Panier" className="md:mr-0">
             <i className="bi bi-cart text-2xl" />
           </Link>
         </article>
