@@ -1,11 +1,39 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
 import Account_management from "../compte/Account_management";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+
+  // Fonction pour pouvoir appeler la fermeture de la modale depuis les enfants
+  const handleCloseModal = () => setIsModalOpen(false);
+
+  // Fonctionnalité du clic sur l'icone mon compte
+  const handleAccountClick = () => {
+    const storedData = localStorage.getItem("currentUser");
+
+    // Si pas connecté : ouvre la modale
+    if (storedData === null) {
+      setIsModalOpen(true);
+      return;
+    }
+
+    const currentUser = JSON.parse(storedData);
+
+    // Si compte admin
+    if (currentUser === "admin") {
+      navigate("/Administration");
+    }
+
+    // Si un autre utilisateur
+    else {
+      navigate("/Compte");
+    }
+  };
 
   return (
     <>
@@ -62,13 +90,14 @@ function Header() {
             <Link to="./About">À propos</Link>
           </div>
 
-          {/* Ouverture de la modale */}
-          <button
-            type="button"
-            onClick={() => setIsModalOpen(true)}
-            className="mr-4"
-          >
-            <i className="bi bi-person text-2xl" />
+          {/* Ouverture de la modale ou passage à la page "mon compte" selon que l'on soit connecté ou non*/}
+          <button type="button" onClick={handleAccountClick} className="mr-4">
+            {/* Affiche une icone différente pour dire si l'on est connecté ou non  ---- A COMPLETER pour 100% des cas*/}
+            {localStorage.getItem("currentUser") ? (
+              <i className="bi bi-person-fill-check text-2xl" />
+            ) : (
+              <i className="bi bi-person text-2xl" />
+            )}
           </button>
 
           <Link to="./Panier">
@@ -81,24 +110,20 @@ function Header() {
         <hr className="my-2 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-75 dark:via-neutral-800" />
       </div>
 
-      {/* Modale inline */}
+      {/* -----------------------------------MODALE------------------------------------ */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 bg-opacity-50">
-          <div className="bg-white p-6 rounded shadow-lg relative w-full max-w-md">
+          <div className="bg-white p-6 rounded-2xl relative w-full max-w-md">
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl"
+              className="absolute top-2 right-2 text-primary hover:text-secondary text-2xl"
             >
               &times;
             </button>
 
-            {/* Contenu de la modale ici */}
-            <div className="text-center">
-              <h2 className="text-xl font-bold mb-4">Connexion</h2>
-
-              <Account_management />
-            </div>
+            {/* Contenu de la modale */}
+            <Account_management onClose={handleCloseModal} />
           </div>
         </div>
       )}
