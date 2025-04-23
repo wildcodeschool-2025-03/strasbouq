@@ -36,10 +36,10 @@ function Contact() {
   };
 
   return (
-    <>
-      <h1 className="text-center text-secondary m-6 text-4xl">Contact</h1>
+    <section className="bg-white">
+      <h1 className="text-center text-secondary m-4 text-3xl p-5">Contact</h1>
       <section className="md:flex items-center flex-row-reverse justify-around ">
-        <section className="space-y-4 mb-6 text-center ">
+        <section className="space-y-7 p-5 m-5 md:w-1/2 md:space-y-20 md:none-text-center md:flex flex-col md:algn-items-center">
           <p>
             <i className="text-4xl mr-2 bi bi-telephone-fill" />
             09 748 885
@@ -109,7 +109,7 @@ function Contact() {
       </section>
 
       <ToastContainer position="top-right" autoClose={3000} />
-    </>
+    </section>
   );
 }
 
