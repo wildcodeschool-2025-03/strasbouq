@@ -2,7 +2,7 @@ import AccordeonItem from "./AccordeonItem";
 
 function Accordeon() {
   return (
-    <div className="mt-4 w-[80%] ml-5">
+    <div className="mt-4 w-[80%] ml-5 pb-4 md:w-[50%] xl:w-[33%] xl:pb-1">
       <AccordeonItem title="Mes informations">
         <p>Contenu de la section 1.</p>
       </AccordeonItem>
