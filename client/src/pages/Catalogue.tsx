@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import BurgerMenuFiltre from "../components/catalogue/Burgermenu_filtre";
 import Contenu from "../components/catalogue/Contenu_catalogue";
 
 function Catalogue() {
@@ -12,11 +13,14 @@ function Catalogue() {
   }, []);
 
   return (
+    <>
+      <BurgerMenuFiltre />
     <section className="grid md:grid-cols-2 xl:grid-cols-3 gap-20 pt-20 pb-20">
       {items?.map((item) => (
         <Contenu item={item} key={item} />
       ))}
     </section>
+    </>
   );
 }
 
