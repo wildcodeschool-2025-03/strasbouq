@@ -1,16 +1,10 @@
-import Footer from "../components/footer/Footer";
-import Header from "../components/header/Header";
-
-
 function Cgv() {
   return (
     <>
-      <Header />
-
       <h1 className="text-center text-secondary m-6 ">
         Conditions générales de vente{" "}
       </h1>
-    <p>
+      <p>
         1. Objet et champ d'application Les CGV visent à définir les relations
         contractuelles et modalités de vente entre Les Jardin Alsacien et tout
         Client souhaitant procéder à un achat sur le site internet Les Jardin
@@ -58,8 +52,6 @@ function Cgv() {
         ou son savoir-faire, peuvent faire que la création livrée puisse, à son
         initiative, parfois légèrement différer du visuel.
       </p>
-
-      <Footer />
     </>
   );
 }

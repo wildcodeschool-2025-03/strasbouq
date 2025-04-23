@@ -1,10 +1,6 @@
-import Footer from "../components/footer/Footer";
-import Header from "../components/header/Header";
-
 function Legales() {
   return (
     <>
-      <Header />
       <h1 className="text-center text-primary m-6"> Mentions légales</h1>
 
       <p>
@@ -58,8 +54,6 @@ function Legales() {
         cookies. Vous pouvez à tout moment modifier vos préférences dans les
         paramètres de votre navigateur.
       </p>
-
-      <Footer />
     </>
   );
 }
