@@ -13,3 +13,5 @@ Variable currentUser qui contient :
 
 /!\ Si au montage du composant on a besoin de chercher l'info dans une variable stockée, ALORS il faut faire la vérification dans un UseEffect !
 Ex : une page qui afffiche différents contenus selon le compte utilisateur (commandes passées...)
+
+Pour faire de la redirection de page autrement qu'avec <Link> (pare xemple dans une fonction) => Importer et utiliser la focntion et l'état useNavigate de react-router
