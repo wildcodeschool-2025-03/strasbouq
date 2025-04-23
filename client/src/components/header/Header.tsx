@@ -83,7 +83,7 @@ function Header() {
 
       {/* Modale inline */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 bg-opacity-50">
           <div className="bg-white p-6 rounded shadow-lg relative w-full max-w-md">
             <button
               type="button"
@@ -96,7 +96,6 @@ function Header() {
             {/* Contenu de la modale ici */}
             <div className="text-center">
               <h2 className="text-xl font-bold mb-4">Connexion</h2>
-              <p>Voici un formulaire ou un contenu de compte ici :</p>
 
               <Account_management />
             </div>

@@ -109,21 +109,23 @@ function Account_management() {
 
   return (
     <>
-      <p>Adresse mail :</p>
-      <input
-        type="text"
-        value={mailInput}
-        onChange={handleMailInputChange}
-        className="border-2 border-amber-950"
-      />
+      <section className="flex flex-col mb-8">
+        <p>Adresse mail :</p>
+        <input
+          type="text"
+          value={mailInput}
+          onChange={handleMailInputChange}
+          className="border-2 border-amber-950"
+        />
 
-      <p>Mot de passe :</p>
-      <input
-        type="text"
-        value={passwordInput}
-        onChange={handlePasswordInputChange}
-        className="border-2 border-amber-950"
-      />
+        <p>Mot de passe :</p>
+        <input
+          type="text"
+          value={passwordInput}
+          onChange={handlePasswordInputChange}
+          className="border-2 border-amber-950"
+        />
+      </section>
 
       <button
         type="button"
