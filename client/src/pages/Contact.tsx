@@ -6,6 +6,9 @@ import "react-toastify/dist/ReactToastify.css";
 function Contact() {
   const form = useRef<HTMLFormElement>(null);
   const [loading, setLoading] = useState(false);
+  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,10 +19,10 @@ function Contact() {
 
     emailjs
       .sendForm(
-        "service_f6pnqxa",
-        "wildeats",
+        serviceId,
+        templateId,
         form.current,
-        "OE9-cl3x3ZPw4LHSZ",
+        publicKey,
       )
       .then(
         (result) => {
