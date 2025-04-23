@@ -1,11 +1,17 @@
 import { useState } from "react";
 
+// Carousel version mobile
+
 function Catalogue_accueil() {
   const [carousel, setCarousel] = useState(1);
+
+  // Fonction bouton de droite
 
   function setNextR() {
     setCarousel((prev) => (prev >= 3 ? 1 : prev + 1));
   }
+
+  // Fonction bouton de gauche
 
   function setNextL() {
     setCarousel((prev) => (prev === 1 ? 3 : prev - 1));
@@ -13,7 +19,9 @@ function Catalogue_accueil() {
 
   return (
     <>
-      <p className="">Réservez toutes vos fleurs, depuis chez vous.</p>
+      <div className="flex justify-center text-secondary pt-5">
+        <h1>Réservez toutes vos fleurs, depuis chez vous.</h1>
+      </div>
       <div>
         {carousel === 1 && <p>1</p>}
         {carousel === 2 && <p>2</p>}
