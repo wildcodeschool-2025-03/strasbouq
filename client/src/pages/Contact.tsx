@@ -6,9 +6,9 @@ import "react-toastify/dist/ReactToastify.css";
 function Contact() {
   const form = useRef<HTMLFormElement>(null);
   const [loading, setLoading] = useState(false);
-  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
-  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,12 +18,7 @@ function Contact() {
     setLoading(true);
 
     emailjs
-      .sendForm(
-        serviceId,
-        templateId,
-        form.current,
-        publicKey,
-      )
+      .sendForm(serviceId, templateId, form.current, publicKey)
       .then(
         (result) => {
           console.log(result.text);
