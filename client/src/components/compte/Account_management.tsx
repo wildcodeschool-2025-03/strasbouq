@@ -74,7 +74,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
   const loginToAccount = () => {
     // Si c'est le compte administrateur
     if (mailInput === ADMIN_LOGIN && passwordInput === ADMIN_PASSWORD) {
-      localStorage.setItem("currentUser", JSON.stringify("admin"));
+      sessionStorage.setItem("currentUser", JSON.stringify("admin"));
       alert("Bienvenue administrateur !");
 
       // Passe à la page "administration" et ferme la modale
@@ -99,7 +99,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
       // Vérifie si les informations de connexion matchent
 
       if (user.mail === mailInput && user.password === passwordInput) {
-        localStorage.setItem("currentUser", JSON.stringify(user));
+        sessionStorage.setItem("currentUser", JSON.stringify(user));
 
         // Passe à la page "mon compte" et ferme la modale
         alert(`Bienvenue ${mailInput}`);
@@ -115,10 +115,10 @@ function Account_management({ onClose }: { onClose: () => void }) {
 
   // -----------------------------------Fonction déconnexion---------------------------------------------------------
   const logoutAccount = () => {
-    const storedData = localStorage.getItem("currentUser");
+    const storedData = sessionStorage.getItem("currentUser");
 
     if (storedData != null) {
-      localStorage.removeItem("currentUser");
+      sessionStorage.removeItem("currentUser");
     }
 
     alert("Bien déconnecté");
