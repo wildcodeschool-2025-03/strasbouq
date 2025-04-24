@@ -37,6 +37,9 @@ function Account_management({ onClose }: { onClose: () => void }) {
     // Si aucun utilisateur n'existe encore, crée un tableau contenant l'objet utilisateur
     if (storedData === null) {
       localStorage.setItem("users", JSON.stringify([account]));
+      alert(
+        `Votre compte a bien été crée - login: ${mailInput}, mot de passe: ${passwordInput}`,
+      );
     }
 
     // Si un ou plusieurs compte existent déja...
