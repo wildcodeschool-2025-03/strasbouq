@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import Contenu from "../catalogue/Contenu_catalogue";
 
-// Typage du bouquet
+// Typage du bouquet !
 type Bouquet = {
   id: number;
   nom: string;
