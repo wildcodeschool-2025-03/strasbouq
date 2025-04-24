@@ -18,7 +18,7 @@ function Catalogue_accueil() {
   const [carousel, setCarousel] = useState(1);
   const [items, setItems] = useState<Bouquet[]>([]);
   const [cardsPerPage, setCardsPerPage] = useState(
-    window.innerWidth >= 768 ? 2 : 1
+    window.innerWidth >= 768 ? 2 : 1,
   );
 
   useEffect(() => {
