@@ -14,7 +14,7 @@ function Header() {
 
   // Fonctionnalité du clic sur l'icone mon compte
   const handleAccountClick = () => {
-    const storedData = localStorage.getItem("currentUser");
+    const storedData = sessionStorage.getItem("currentUser");
 
     // Si pas connecté : ouvre la modale
     if (storedData === null) {
@@ -97,7 +97,7 @@ function Header() {
             className="md:mr-4"
           >
             {/* Affiche une icone différente pour dire si l'on est connecté ou non  ---- A COMPLETER pour 100% des cas*/}
-            {localStorage.getItem("currentUser") ? (
+            {sessionStorage.getItem("currentUser") ? (
               <i className="bi bi-person-fill-check text-2xl" />
             ) : (
               <i className="bi bi-person text-2xl" />
