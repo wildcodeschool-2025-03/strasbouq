@@ -43,7 +43,7 @@ function Panier() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col lg:flex-row gap-12">
-      {/* Récapitulatif (en haut sur mobile, à droite sur desktop) */}
+      {/* Récapitulatif  */}
       <div className="order-1 lg:order-2 w-full lg:w-[350px] bg-[#F5ECE6] p-6 rounded-xl shadow-md h-fit">
         <h3 className="text-xl font-semibold mb-4 text-[#B67152]">
           Récapitulatif
@@ -69,7 +69,7 @@ function Panier() {
         </button>
       </div>
 
-      {/* Mon panier (en bas sur mobile, à gauche sur desktop) */}
+      {/* Mon panier */}
       <div className="order-2 lg:order-1 flex-1">
         <h2 className="text-2xl font-bold mb-8 text-[#B67152]">Mon panier</h2>
         {panier.length === 0 ? (

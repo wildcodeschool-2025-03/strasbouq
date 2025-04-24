@@ -9,7 +9,7 @@ interface itemsContenu {
 interface ContenuProps {
   item: itemsContenu;
 }
-
+// Fonction
 function ContenuPanier({ item }: ContenuProps) {
   return (
     <section className="flex gap-6 mb-6 items-start">
