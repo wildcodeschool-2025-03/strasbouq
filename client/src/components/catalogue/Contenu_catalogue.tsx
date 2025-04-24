@@ -75,13 +75,9 @@ function Contenu({ item }: ContenuProps) {
         <button
           className="bg-[#CE9170] rounded-4xl p-2 pr-4 pl-4 font-bold"
           type="button"
-          fix_cata_acceuil
-        >
-
           onClick={panier}
         >
           Ajouter au panier
-         dev
         </button>
       </section>
     </section>
