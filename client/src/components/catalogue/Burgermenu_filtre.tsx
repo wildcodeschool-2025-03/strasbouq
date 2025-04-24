@@ -38,14 +38,15 @@ const BurgerMenufiltre: React.FC = () => {
       ),
     },
     {
-      title: "Mes favoris",
+      title: "Disponibilité",
       content: (
         <>
           <label className="block">
-            <input type="radio" name="favorites" className="mr-2" /> Favoris
+            <input type="radio" name="favorites" className="mr-2" /> Disponible
           </label>
           <label className="block">
-            <input type="radio" name="favorites" className="mr-2" /> Tous
+            <input type="radio" name="favorites" className="mr-2" /> Non
+            disponible
           </label>
         </>
       ),
@@ -68,6 +69,15 @@ const BurgerMenufiltre: React.FC = () => {
           </label>
           <label className="block">
             <input type="checkbox" className="mr-2" /> Blanche
+          </label>
+          <label className="block">
+            <input type="checkbox" className="mr-2" /> Violet
+          </label>
+          <label className="block">
+            <input type="checkbox" className="mr-2" /> Bleu
+          </label>
+          <label className="block">
+            <input type="checkbox" className="mr-2" /> Rose
           </label>
         </>
       ),
