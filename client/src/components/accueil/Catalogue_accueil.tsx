@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import Contenu from "../catalogue/Contenu_catalogue";
 
-// Typage du bouquet pour TypeScript
+// Typage du bouquet
 type Bouquet = {
   id: number;
   nom: string;
@@ -14,21 +15,21 @@ type Bouquet = {
 
 // Composant principal du carrousel de la page d'accueil
 function Catalogue_accueil() {
-  // État pour gérer le numéro de la slide dans le carrousel
   const [carousel, setCarousel] = useState(1);
-
-  // État pour stocker les bouquets récupérés via l'API
   const [items, setItems] = useState<Bouquet[]>([]);
+  const [cardsPerPage, setCardsPerPage] = useState(
+    window.innerWidth >= 768 ? 2 : 1
+  );
 
-  // État pour gérer le favori
-  const [isFavorite, setIsFavorite] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setCardsPerPage(window.innerWidth >= 768 ? 2 : 1);
+    };
 
-  // Gère le clic sur l’icône de favori
-  const handleClick = () => {
-    setIsFavorite(!isFavorite);
-  };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-  // Appel de l'API
   useEffect(() => {
     const API_URL = import.meta.env.VITE_API_URL;
 
@@ -38,17 +39,15 @@ function Catalogue_accueil() {
       .catch((err) => console.error("Erreur de chargement :", err));
   }, []);
 
-  // Calcul de l’index de départ
-  const startIndex = (carousel - 1) * 3;
+  const startIndex = (carousel - 1) * cardsPerPage;
+  const totalPages = Math.ceil(items.length / cardsPerPage);
 
-  // Fonction pour passer à la slide suivante
   function setNextR() {
-    setCarousel((prev) => (prev >= 3 ? 1 : prev + 1));
+    setCarousel((prev) => (prev >= totalPages ? 1 : prev + 1));
   }
 
-  // Fonction pour revenir à la slide précédente
   function setNextL() {
-    setCarousel((prev) => (prev === 1 ? 3 : prev - 1));
+    setCarousel((prev) => (prev === 1 ? totalPages : prev - 1));
   }
 
   return (
@@ -58,41 +57,25 @@ function Catalogue_accueil() {
         <h1>Réservez toutes vos fleurs, depuis chez vous.</h1>
       </div>
 
-      {/* Section carrousel */}
-      <section className="flex justify-items-center bg-[#EADED5] rounded-md mb-10 mt-10 items-center">
-        {/* Bouton gauche */}
-        <article>
-          <button type="button" onClick={setNextL}>
-            <i className="bi bi-caret-left text-4xl p-5" />
-          </button>
-        </article>
+      <section className="flex items-center justify-center gap-4 my-10">
+        {/* Flèche gauche */}
+        <button type="button" onClick={setNextL} className="text-4xl">
+          <i className="bi bi-caret-left" />
+        </button>
 
-        {/* Affichage du bouquet */}
-        {items.slice(startIndex, startIndex + 1).map((item) => (
-          <div key={item.id}>
-            <img src={item.image_url} alt={item.nom} />
-            <h3>{item.nom}</h3>
-            <p>{item.description}</p>
-            <p>{item.prix} €</p>
+        {/* Cartes */}
+        <div className="flex gap-6">
+          {items.slice(startIndex, startIndex + cardsPerPage).map((item) => (
+            <div key={item.id} className="w-full max-w-[300px]">
+              <Contenu item={item} />
+            </div>
+          ))}
+        </div>
 
-            {/* Bouton favori */}
-            <button type="button" onClick={handleClick}>
-              {!isFavorite ? "🖤" : "❤️"}
-            </button>
-
-            {/* Bouton pour commander */}
-            <button className="bg-[#CE9170] rounded-md p-1" type="button">
-              Commander
-            </button>
-          </div>
-        ))}
-
-        {/* Bouton droit */}
-        <article>
-          <button type="button" onClick={setNextR}>
-            <i className="bi bi-caret-right text-4xl p-5" />
-          </button>
-        </article>
+        {/* Flèche droite */}
+        <button type="button" onClick={setNextR} className="text-4xl">
+          <i className="bi bi-caret-right" />
+        </button>
       </section>
 
       {/* Lien du catalogue */}
