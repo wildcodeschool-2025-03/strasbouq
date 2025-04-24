@@ -13,30 +13,6 @@ function Catalogue() {
   const [items, setItems] = useState<itemsContenu[]>([]);
   const API_URL = import.meta.env.VITE_API_URL;
 
-  // -------------STATE A RELIER AUX BOUTONS DE NATHAN--------------------
-  // const [order, setOrder] = useState(false);
-
-  // -------------STATE A RELIER AUX REGLETTES DE NATHAN--------------------
-  // const [minPrice, setMinPrice] = useState(0);
-  // const [maxPrice, setMaxPrice] = useState(100);
-
-  // --------------A IMPLEMENTER APRES MODIFICATIONDE L'API-----------------
-  // const [color, setColor] = useState("");
-
-  //----------FONCTION TRI DE l'API-----A RELIER A UN BOUTON------------------
-  // const flowerTri = () => {
-  //   const finalTable: itemsContenu[] = [];
-  //   const tableau: itemsContenu[] = items;
-
-  //   for (const flower of tableau) {
-  //     if (flower.prix < maxPrice && flower.prix > minPrice) {
-  //       finalTable.push(flower);
-  //     }
-  //   }
-
-  //   setItems(finalTable);
-  // };
-
   useEffect(() => {
     fetch(API_URL)
       .then((response) => response.json())
