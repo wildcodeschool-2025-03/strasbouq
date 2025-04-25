@@ -11,6 +11,7 @@
 * {
   box-sizing: border-box;
   font-family: "Quicksand", sans-serif;
+  letter-spacing: 1px;
 }
 
 @media screen and (min-width: 1280px) {
@@ -18,5 +19,9 @@
     background-color: #f8f8f8;
     width: 60rem;
     margin: 0 auto;
+  }
+
+  * {
+    letter-spacing: 2px;
   }
 }
