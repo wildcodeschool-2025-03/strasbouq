@@ -1,6 +1,7 @@
 // Import necessary modules from React and React Router
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+//import { StrictMode } from "react";
+//import { createRoot } from "react-dom/client";
+import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router";
 
 /* ************************************************************************* */
@@ -11,8 +12,15 @@ import App from "./App";
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
 
-// import About from "./pages/About";
-// import Contact from "./pages/Contact";
+import About from "./pages/About";
+import Accueil from "./pages/Accueil";
+import Administration from "./pages/Administration";
+import Catalogue from "./pages/Catalogue";
+import Cgv from "./pages/Cgv";
+import Compte from "./pages/Compte";
+import Contact from "./pages/Contact";
+import Mentions from "./pages/Mentions";
+import Panier from "./pages/Panier";
 
 /* ************************************************************************* */
 
@@ -20,8 +28,45 @@ import App from "./App";
 // You can add more routes as you build out your app!
 const router = createBrowserRouter([
   {
-    path: "/", // The root path
-    element: <App />, // Renders the App component for the home page
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <Accueil />,
+      },
+      {
+        path: "/About",
+        element: <About />,
+      },
+      {
+        path: "/Administration",
+        element: <Administration />,
+      },
+      {
+        path: "/Catalogue",
+        element: <Catalogue />,
+      },
+      {
+        path: "/CGV",
+        element: <Cgv />,
+      },
+      {
+        path: "/Compte",
+        element: <Compte />,
+      },
+      {
+        path: "/Contact",
+        element: <Contact />,
+      },
+      {
+        path: "/Mentions",
+        element: <Mentions />,
+      },
+      {
+        path: "/Panier",
+        element: <Panier />,
+      },
+    ],
   },
   // Try adding a new route! For example, "/about" with an About component
 ]);
@@ -35,11 +80,9 @@ if (rootElement == null) {
 }
 
 // Render the app inside the root element
-createRoot(rootElement).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
-);
+if (rootElement != null) {
+  ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
+}
 
 /**
  * Helpful Notes:
