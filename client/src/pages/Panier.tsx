@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ContenuPanier from "../components/panier/Contenue_panier";
+import { getCurrentUserData } from "../components/fonctions";
 
 interface itemsContenu {
   id: number;
@@ -9,30 +10,16 @@ interface itemsContenu {
   image_url: string;
 }
 
-interface Utilisateur {
-  mail: string;
-  panier: itemsContenu[] | null;
+interface Article {
+  flower: itemsContenu;
+  quantity: number;
 }
 
 function Panier() {
-  const [panier, setPanier] = useState<itemsContenu[]>([]);
+  const [panier, setPanier] = useState<Article[]>([]);
 
   useEffect(() => {
-    const listUser = localStorage.getItem("users");
-    if (listUser === null) {
-      alert("Veuillez vous connecter");
-      return;
-    }
-    const users: Utilisateur[] = JSON.parse(listUser);
-
-    const userConnected = sessionStorage.getItem("currentUser");
-    if (userConnected === null) {
-      alert("Veuillez vous connecter");
-      return;
-    }
-    const connected = JSON.parse(userConnected);
-
-    const user = users.find((u) => u.mail === connected.mail);
+    const user = getCurrentUserData();
 
     if (!user || !user.panier || user.panier.length === 0) {
       alert("Mon panier est vide");
@@ -58,7 +45,13 @@ function Panier() {
         <div className="flex justify-between text-lg font-bold mb-6">
           <span>TOTAL</span>
           <span>
-            {panier.reduce((total, item) => total + item.prix, 0).toFixed(2)} €
+            {panier
+              .reduce(
+                (total, item) => total + item.flower.prix * item.quantity,
+                0,
+              )
+              .toFixed(2)}{" "}
+            €
           </span>
         </div>
         <button
@@ -72,10 +65,17 @@ function Panier() {
       {/* Mon panier */}
       <div className="order-2 lg:order-1 flex-1">
         <h2 className="text-2xl font-bold mb-8 text-[#B67152]">Mon panier</h2>
+
+        {/* Affichage du panier si celui-ci existe */}
         {panier.length === 0 ? (
           <p className="text-center text-gray-600">Votre panier est vide.</p>
         ) : (
-          panier.map((item) => <ContenuPanier key={item.id} item={item} />)
+          panier.map((item) => (
+            <article key={item.flower.id} className="flex gap-8">
+              <ContenuPanier item={item.flower} />
+              <p>x{item.quantity}</p>
+            </article>
+          ))
         )}
       </div>
     </div>
