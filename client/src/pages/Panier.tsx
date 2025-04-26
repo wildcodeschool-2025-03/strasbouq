@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import ContenuPanier from "../components/panier/Contenue_panier";
 import { getCurrentUserData } from "../components/fonctions";
+import ContenuPanier from "../components/panier/Contenue_panier";
 
 interface itemsContenu {
   id: number;
