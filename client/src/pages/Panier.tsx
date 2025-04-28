@@ -15,13 +15,19 @@ interface Article {
   quantity: number;
 }
 
+interface Utilisateur {
+  mail: string;
+  panier: Article[];
+  reservation: Article[];
+}
+
+// Ajout au panier
 function Panier() {
   const [panier, setPanier] = useState<Article[]>([]);
 
   useEffect(() => {
     const user = getCurrentUserData();
     if (!user || !user.panier || user.panier.length === 0) {
-      alert("Mon panier est vide");
     } else {
       setPanier(user.panier);
     }
@@ -29,6 +35,57 @@ function Panier() {
 
   const updatePanier = (newPanier: Article[]) => {
     setPanier(newPanier);
+  };
+
+  // Passage de commande
+  const payCart = () => {
+    // Récupère les datas de la personne connectée
+    const storedData = localStorage.getItem("users");
+    if (storedData === null) {
+      alert("Aucun compte existant");
+      return;
+    }
+
+    const users: Utilisateur[] = JSON.parse(storedData);
+
+    const userStoredData = sessionStorage.getItem("currentUser");
+    if (userStoredData === null) {
+      alert("veuillez vous connecter");
+      return;
+    }
+    const userConnected = JSON.parse(userStoredData);
+    const user = users.find((u: Utilisateur) => u.mail === userConnected.mail);
+
+    if (!user) {
+      alert("Utilisateur non trouvé");
+      return;
+    }
+
+    // Si panier vide
+    if (!user || !user.panier || user.panier.length === 0) {
+      alert("Votre panier est vide, rien à payer !");
+      return;
+    }
+
+    // Si il n'y avait pas déja une résa en cours
+    if (!user.reservation) {
+      user.reservation = [];
+      user.reservation = user.panier;
+    }
+
+    // Si il y a déja une réservation
+    else {
+      for (const article of user.panier) {
+        user.reservation.push(article);
+      }
+    }
+
+    // Vider le panier
+    user.panier = [];
+    setPanier(user.panier);
+
+    // Enregistrer la réservation
+    localStorage.setItem("users", JSON.stringify(users));
   };
 
   return (
@@ -60,6 +117,7 @@ function Panier() {
         <button
           type="button"
           className="bg-[#CE9170] hover:bg-[#b87c5d] text-white w-full py-3 rounded-md transition"
+          onClick={payCart}
         >
           Paiement
         </button>
