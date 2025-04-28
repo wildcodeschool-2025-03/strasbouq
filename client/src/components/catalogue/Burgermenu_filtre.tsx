@@ -1,8 +1,21 @@
 import { ChevronDown, ChevronUp, SlidersHorizontal } from "lucide-react";
-import type React from "react";
 import { useState } from "react";
 
-const BurgerMenufiltre: React.FC = () => {
+interface Props {
+  setColor: (value: string) => void;
+  setDisponibilite: (value: boolean | null) => void;
+  setOrder: (value: boolean) => void;
+  setMinPrice: (value: number) => void;
+  setMaxPrice: (value: number) => void;
+}
+
+const BurgerMenufiltre = ({
+  setColor,
+  setDisponibilite,
+  setOrder,
+  setMinPrice,
+  setMaxPrice,
+}: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openSection, setOpenSection] = useState<string | null>(null);
 
@@ -10,16 +23,60 @@ const BurgerMenufiltre: React.FC = () => {
     setOpenSection(openSection === title ? null : title);
   };
 
+  const handlePriceCategoryChange = (event: string) => {
+    if (event === "low") {
+      setMinPrice(0);
+      setMaxPrice(45);
+    } else if (event === "high") {
+      setMinPrice(46);
+      setMaxPrice(100);
+    } else {
+      setMinPrice(0);
+      setMaxPrice(100);
+    }
+  };
+
+  const handleResetFilters = () => {
+    setColor("");
+    setDisponibilite(null);
+    setOrder(false);
+    setMinPrice(0);
+    setMaxPrice(100);
+  };
+
   const sections = [
-    {
+    { 
       title: "Prix",
       content: (
         <>
+        <label className="block">
+  <input
+    type="radio"
+    name="price"
+    className="mr-2"
+    onChange={(e) => handlePriceCategoryChange(e.target.value)}
+  />
+  Tout afficher
+</label>
           <label className="block">
-            <input type="checkbox" className="mr-2" /> ≤ à 45€
+            <input 
+              type="radio" 
+              name="price" 
+              className="mr-2"
+              value="low"
+              onChange={(e) => handlePriceCategoryChange(e.target.value)} 
+            /> 
+            ≤ 45€
           </label>
           <label className="block">
-            <input type="checkbox" className="mr-2" /> ≥ à 50€
+            <input 
+              type="radio" 
+              name="price" 
+              className="mr-2"
+              value="high"
+              onChange={(e) => handlePriceCategoryChange(e.target.value)}
+            /> 
+            ≥ 50€
           </label>
         </>
       ),
@@ -29,10 +86,22 @@ const BurgerMenufiltre: React.FC = () => {
       content: (
         <>
           <label className="block">
-            <input type="checkbox" className="mr-2" /> Ordre croissant
+            <input
+              type="radio"
+              name="order"
+              className="mr-2"
+              onChange={() => setOrder(true)}
+            />
+            Ordre croissant
           </label>
           <label className="block">
-            <input type="checkbox" className="mr-2" /> Ordre décroissant
+            <input
+              type="radio"
+              name="order"
+              className="mr-2"
+              onChange={() => setOrder(false)}
+            />
+            Ordre décroissant
           </label>
         </>
       ),
@@ -41,13 +110,33 @@ const BurgerMenufiltre: React.FC = () => {
       title: "Disponibilité",
       content: (
         <>
+        <label className="block">
+  <input
+    type="radio"
+    name="dispo"
+    className="mr-2"
+    onChange={() => setDisponibilite(null)} 
+  />
+  Tout afficher
+</label>
           <label className="block">
-            <input type="radio" name="favorites" className="mr-2" /> Disponible
-          </label>
-          <label className="block">
-            <input type="radio" name="favorites" className="mr-2" /> Non
-            disponible
-          </label>
+  <input
+    type="radio"
+    name="dispo"
+    className="mr-2"
+    onChange={() => setDisponibilite(true)}
+  />
+  Disponible
+</label>
+<label className="block">
+  <input
+    type="radio"
+    name="dispo"
+    className="mr-2"
+    onChange={() => setDisponibilite(false)}
+  />
+  Non disponible
+</label>
         </>
       ),
     },
@@ -55,30 +144,24 @@ const BurgerMenufiltre: React.FC = () => {
       title: "Couleurs",
       content: (
         <>
-          <label className="block">
-            <input type="checkbox" className="mr-2" /> Rouge
-          </label>
-          <label className="block">
-            <input type="checkbox" className="mr-2" /> Bleu
-          </label>
-          <label className="block">
-            <input type="checkbox" className="mr-2" /> Jaune
-          </label>
-          <label className="block">
-            <input type="checkbox" className="mr-2" /> Orange
-          </label>
-          <label className="block">
-            <input type="checkbox" className="mr-2" /> Blanche
-          </label>
-          <label className="block">
-            <input type="checkbox" className="mr-2" /> Violet
-          </label>
-          <label className="block">
-            <input type="checkbox" className="mr-2" /> Bleu
-          </label>
-          <label className="block">
-            <input type="checkbox" className="mr-2" /> Rose
-          </label>
+          {["Rouge", "Bleu", "Jaune", "Orange", "Blanc", "Violet", "Rose"].map((color) => (
+               <label key={color} className="block capitalize">
+               <input
+                 type="checkbox"
+                 name="color"
+                 className="mr-2"
+                 onChange={(e) => {
+                   if (e.target.checked) {
+                     setColor(color.toLowerCase());
+                   } else {
+                     setColor("");
+                   }
+                 }}
+               />
+               {color}
+             </label>
+            
+          ))}
         </>
       ),
     },
@@ -117,6 +200,13 @@ const BurgerMenufiltre: React.FC = () => {
               )}
             </div>
           ))}
+          <button
+  type="button"
+  onClick={() => handleResetFilters()}
+  className="w-full text-center py-2 mt-4 bg-secondary rounded-4xl font-semibold"
+>
+  Réinitialiser tous les filtres
+</button>
         </aside>
       )}
     </div>
