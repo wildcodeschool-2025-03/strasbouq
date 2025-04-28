@@ -72,7 +72,7 @@ function Panier() {
         ) : (
           panier.map((item) => (
             <article key={item.flower.id} className="flex gap-8">
-              <ContenuPanier item={item.flower} />
+              <ContenuPanier item={item} />
               <p>x{item.quantity}</p>
             </article>
           ))
