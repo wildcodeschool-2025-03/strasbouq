@@ -31,8 +31,8 @@ function Panier() {
   return (
     <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col lg:flex-row gap-12">
       {/* Récapitulatif  */}
-      <div className="order-1 lg:order-2 w-full lg:w-[350px] bg-primary p-6 rounded-xl shadow-md h-fit">
-        <h3 className="text-xl font-semibold mb-4 text-secondary">
+      <div className="order-1 lg:order-2 w-full lg:w-[350px] bg-[#F5ECE6] p-6 rounded-xl shadow-md h-fit">
+        <h3 className="text-xl font-semibold mb-4 text-[#B67152]">
           Récapitulatif
         </h3>
         <div className="flex justify-between mb-2 text-sm">
@@ -56,7 +56,7 @@ function Panier() {
         </div>
         <button
           type="button"
-          className="bg-secondary hover:bg-[#b87c5d] text-white w-full py-3 rounded-md transition"
+          className="bg-[#CE9170] hover:bg-[#b87c5d] text-white w-full py-3 rounded-md transition"
         >
           Paiement
         </button>
@@ -72,7 +72,7 @@ function Panier() {
         ) : (
           panier.map((item) => (
             <article key={item.flower.id} className="flex gap-8">
-              <ContenuPanier item={item.flower} />
+              <ContenuPanier item={item} />
               <p>x{item.quantity}</p>
             </article>
           ))
