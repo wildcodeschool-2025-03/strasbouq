@@ -12,9 +12,14 @@ interface ContenuProps {
   item: itemsContenu;
 }
 
+interface Article {
+  flower: itemsContenu;
+  quantity: number;
+}
+
 interface Utilisateur {
   mail: string;
-  panier: itemsContenu[] | null;
+  panier: Article[];
 }
 
 function Contenu({ item }: ContenuProps) {
@@ -23,13 +28,16 @@ function Contenu({ item }: ContenuProps) {
     setIsFavorite(!isFavorite);
   };
 
+  // Fonction ajout au panier----------------------------------------
   const panier = () => {
+    // Récupère les datas de la personne connectée
     const storedData = localStorage.getItem("users");
     if (storedData === null) {
-      alert("veuillez vous connecter");
+      alert("Aucun compte existant");
       return;
     }
-    const users = JSON.parse(storedData);
+
+    const users: Utilisateur[] = JSON.parse(storedData);
 
     const userStoredData = sessionStorage.getItem("currentUser");
     if (userStoredData === null) {
@@ -39,22 +47,37 @@ function Contenu({ item }: ContenuProps) {
     const userConnected = JSON.parse(userStoredData);
     const user = users.find((u: Utilisateur) => u.mail === userConnected.mail);
 
-    if (!user.panier) {
-      alert("mon panier est vide");
-      const commande = [];
-      commande.push(item);
-      user.panier = commande;
-    } else {
-      alert("mon panier existe");
-      user.panier.push(item);
+    if (!user) {
+      alert("Utilisateur non trouvé");
+      return;
     }
 
-    const index = users.findIndex(
-      (u: Utilisateur) => u.mail === userConnected.mail,
-    );
-    if (index !== -1) {
-      users[index] = user;
+    if (user && !user.panier) {
+      user.panier = [];
     }
+
+    // Cherche si l'article est déjà dans le panier
+    const article = user.panier.find(
+      (article: Article) => article.flower.id === item.id,
+    );
+
+    // Incrémente juste la quantité si c'est le cas
+    if (article) {
+      article.quantity += 1;
+      alert(
+        `Quantité mise à jour : ${article.quantity} exemplaire(s) de "${item.nom}" dans le panier.`,
+      );
+    }
+
+    // Si l'article n'existe pas, ou si le panier lui-même n'existe pas
+    else {
+      user.panier.push({ flower: item, quantity: 1 });
+      alert(
+        `Votre premier exemplaire de "${item.nom}" a été ajouté au panier !`,
+      );
+    }
+
+    // On enregistre le nouveau panier dans la base utilisateur
     localStorage.setItem("users", JSON.stringify(users));
   };
 

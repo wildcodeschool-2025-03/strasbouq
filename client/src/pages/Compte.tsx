@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Accordeon from "../components/compte/Accordeon";
+import { getCurrentUserData } from "../components/fonctions";
 
 interface itemsContenu {
   id: number;
@@ -9,33 +10,26 @@ interface itemsContenu {
   image_url: string;
 }
 
+interface Article {
+  flower: itemsContenu;
+  quantity: number;
+}
+
 interface Utilisateur {
   mail: string;
-  panier: itemsContenu[] | null;
   password: string;
+  panier: Article[];
 }
 
 function Compte() {
   const [curentUser, setCurentUser] = useState<Utilisateur | null>(null);
+
   // --------------------- TO DO CODE A EXCUTER AU RAFRAICHISSEMENT DE LA PAGE ----------------------
   useEffect(() => {
-    const usersData = localStorage.getItem("users");
-
-    if (usersData === null) {
-      alert("message test 1");
-      return;
+    const user = getCurrentUserData();
+    if (user) {
+      setCurentUser(user);
     }
-    const users = JSON.parse(usersData);
-
-    const userConnectedData = sessionStorage.getItem("currentUser");
-    if (userConnectedData === null) {
-      alert("message test 2");
-      return;
-    }
-
-    const userConnected = JSON.parse(userConnectedData);
-    const user = users.find((u: Utilisateur) => u.mail === userConnected.mail);
-    setCurentUser(user);
   }, []);
 
   return (
