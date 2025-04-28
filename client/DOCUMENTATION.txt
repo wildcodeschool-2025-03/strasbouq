@@ -18,6 +18,11 @@ base de donnée =
         {flower : bouquet n°1, quantity : 2},
         {flower : bouquet n°13, quantity : 1},
     ]},
+    reservation = 
+    [
+        {flower : bouquet n°1, quantity : 2},
+        {flower : bouquet n°13, quantity : 1},
+    ]},
     
     {mail : arno@gmail.com
     password : 001

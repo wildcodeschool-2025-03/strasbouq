@@ -18,13 +18,13 @@ interface Utilisateur {
 
 interface ContenuPanierProps {
   item: Article;
+  updatePanier: (newPanier: Article[]) => void;
+  panier: Article[];
 }
 
 // Fonction
-function ContenuPanier({ item }: ContenuPanierProps) {
-  // Fonction ajouter quantité au panier
+function ContenuPanier({ item, updatePanier, panier }: ContenuPanierProps) {
   const add = () => {
-    // On récupère le panier de l'utilisateur actuel
     const listUser = localStorage.getItem("users");
     if (listUser === null) return;
 
@@ -36,28 +36,21 @@ function ContenuPanier({ item }: ContenuPanierProps) {
     const connected = JSON.parse(userConnected);
 
     const user = users.find((u) => u.mail === connected.mail);
-    if (!user) {
-      return;
-    }
+    if (!user) return;
 
-    // On recherche la fleur de la BDD corresponde à celle sur laquelle on clic
     const panierItem = user.panier.find((p) => p.flower.id === item.flower.id);
     if (panierItem) {
       panierItem.quantity += 1;
-
-      const index = users.findIndex(
-        (u: Utilisateur) => u.mail === connected.mail,
-      );
-      if (index !== -1) {
-        users[index] = user;
-      }
       localStorage.setItem("users", JSON.stringify(users));
+
+      const newPanier = panier.map((p) =>
+        p.flower.id === item.flower.id ? { ...p, quantity: p.quantity + 1 } : p,
+      );
+      updatePanier(newPanier);
     }
   };
 
-  // Fonction supprimer quantité au panier
   const supp = () => {
-    // On récupère le panier de l'utilisateur actuel
     const listUser = localStorage.getItem("users");
     if (listUser === null) return;
 
@@ -69,27 +62,26 @@ function ContenuPanier({ item }: ContenuPanierProps) {
     const connected = JSON.parse(userConnected);
 
     const user = users.find((u) => u.mail === connected.mail);
-    if (!user) {
-      return;
-    }
+    if (!user) return;
 
-    // On recherche la fleur de la BDD corresponde à celle sur laquelle on clic
     const panierItem = user.panier.find((p) => p.flower.id === item.flower.id);
     if (panierItem) {
       panierItem.quantity -= 1;
-
       if (panierItem.quantity <= 0) {
         user.panier = user.panier.filter((p) => p.flower.id !== item.flower.id);
       }
-    }
+      localStorage.setItem("users", JSON.stringify(users));
 
-    const index = users.findIndex(
-      (u: Utilisateur) => u.mail === connected.mail,
-    );
-    if (index !== -1) {
-      users[index] = user;
+      const newPanier = panier
+        .map((p) =>
+          p.flower.id === item.flower.id
+            ? { ...p, quantity: p.quantity - 1 }
+            : p,
+        )
+        .filter((p) => p.quantity > 0);
+
+      updatePanier(newPanier);
     }
-    localStorage.setItem("users", JSON.stringify(users));
   };
 
   return (
