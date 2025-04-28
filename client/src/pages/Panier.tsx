@@ -9,27 +9,34 @@ interface itemsContenu {
   image_url: string;
 }
 
+interface Article {
+  flower: itemsContenu;
+  quantity: number;
+}
+
 interface Utilisateur {
   mail: string;
-  panier: itemsContenu[] | null;
+  panier: Article[] | null; // 🔥 ici maintenant Utilisateur.panier contient des Article !
 }
 
 function Panier() {
-  const [panier, setPanier] = useState<itemsContenu[]>([]);
+  const [panier, setPanier] = useState<Article[]>([]); // 🔥 ici on utilise Article[]
 
   useEffect(() => {
     const listUser = localStorage.getItem("users");
-    if (listUser === null) {
+    if (!listUser) {
       alert("Veuillez vous connecter");
       return;
     }
+
     const users: Utilisateur[] = JSON.parse(listUser);
 
     const userConnected = sessionStorage.getItem("currentUser");
-    if (userConnected === null) {
+    if (!userConnected) {
       alert("Veuillez vous connecter");
       return;
     }
+
     const connected = JSON.parse(userConnected);
 
     const user = users.find((u) => u.mail === connected.mail);
@@ -58,7 +65,14 @@ function Panier() {
         <div className="flex justify-between text-lg font-bold mb-6">
           <span>TOTAL</span>
           <span>
-            {panier.reduce((total, item) => total + item.prix, 0).toFixed(2)} €
+            {panier
+              .reduce(
+                (total, article) =>
+                  total + article.flower.prix * article.quantity,
+                0,
+              )
+              .toFixed(2)}{" "}
+            €
           </span>
         </div>
         <button
@@ -75,7 +89,9 @@ function Panier() {
         {panier.length === 0 ? (
           <p className="text-center text-gray-600">Votre panier est vide.</p>
         ) : (
-          panier.map((item) => <ContenuPanier key={item.id} item={item} />)
+          panier.map((item) => (
+            <ContenuPanier key={item.flower.id} item={item} />
+          ))
         )}
       </div>
     </div>
