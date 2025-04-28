@@ -20,7 +20,6 @@ function Panier() {
 
   useEffect(() => {
     const user = getCurrentUserData();
-
     if (!user || !user.panier || user.panier.length === 0) {
       alert("Mon panier est vide");
     } else {
@@ -28,9 +27,13 @@ function Panier() {
     }
   }, []);
 
+  const updatePanier = (newPanier: Article[]) => {
+    setPanier(newPanier);
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col lg:flex-row gap-12">
-      {/* Récapitulatif  */}
+      {/* Récapitulatif */}
       <div className="order-1 lg:order-2 w-full lg:w-[350px] bg-[#F5ECE6] p-6 rounded-xl shadow-md h-fit">
         <h3 className="text-xl font-semibold mb-4 text-[#B67152]">
           Récapitulatif
@@ -66,13 +69,16 @@ function Panier() {
       <div className="order-2 lg:order-1 flex-1">
         <h2 className="text-2xl font-bold mb-8 text-[#B67152]">Mon panier</h2>
 
-        {/* Affichage du panier si celui-ci existe */}
         {panier.length === 0 ? (
           <p className="text-center text-gray-600">Votre panier est vide.</p>
         ) : (
           panier.map((item) => (
             <article key={item.flower.id} className="flex gap-8">
-              <ContenuPanier item={item.flower} />
+              <ContenuPanier
+                item={item}
+                updatePanier={updatePanier}
+                panier={panier}
+              />
               <p>x{item.quantity}</p>
             </article>
           ))
