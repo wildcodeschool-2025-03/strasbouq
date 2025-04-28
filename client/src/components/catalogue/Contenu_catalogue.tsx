@@ -82,7 +82,7 @@ function Contenu({ item }: ContenuProps) {
   };
 
   return (
-    <section className="flex-col justify-items-left bg-[#EADED5] rounded-md relative px-5 pt-[70px] pb-10 w-[300px] mx-auto overflow-visible">
+    <section className="flex-col justify-items-left bg-[#EADED5] rounded-md relative px-5 pt-70 pb-10 w-[300px] mx-auto overflow-visible">
       <img
         className="absolute top-[-50px] left-[0px]"
         src={item.image_url}
