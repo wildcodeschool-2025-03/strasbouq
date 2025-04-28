@@ -45,37 +45,37 @@ const BurgerMenufiltre = ({
   };
 
   const sections = [
-    { 
+    {
       title: "Prix",
       content: (
         <>
-        <label className="block">
-  <input
-    type="radio"
-    name="price"
-    className="mr-2"
-    onChange={(e) => handlePriceCategoryChange(e.target.value)}
-  />
-  Tout afficher
-</label>
           <label className="block">
-            <input 
-              type="radio" 
-              name="price" 
+            <input
+              type="radio"
+              name="price"
+              className="mr-2"
+              onChange={(e) => handlePriceCategoryChange(e.target.value)}
+            />
+            Tout afficher
+          </label>
+          <label className="block">
+            <input
+              type="radio"
+              name="price"
               className="mr-2"
               value="low"
-              onChange={(e) => handlePriceCategoryChange(e.target.value)} 
-            /> 
+              onChange={(e) => handlePriceCategoryChange(e.target.value)}
+            />
             ≤ 45€
           </label>
           <label className="block">
-            <input 
-              type="radio" 
-              name="price" 
+            <input
+              type="radio"
+              name="price"
               className="mr-2"
               value="high"
               onChange={(e) => handlePriceCategoryChange(e.target.value)}
-            /> 
+            />
             ≥ 50€
           </label>
         </>
@@ -110,33 +110,33 @@ const BurgerMenufiltre = ({
       title: "Disponibilité",
       content: (
         <>
-        <label className="block">
-  <input
-    type="radio"
-    name="dispo"
-    className="mr-2"
-    onChange={() => setDisponibilite(null)} 
-  />
-  Tout afficher
-</label>
           <label className="block">
-  <input
-    type="radio"
-    name="dispo"
-    className="mr-2"
-    onChange={() => setDisponibilite(true)}
-  />
-  Disponible
-</label>
-<label className="block">
-  <input
-    type="radio"
-    name="dispo"
-    className="mr-2"
-    onChange={() => setDisponibilite(false)}
-  />
-  Non disponible
-</label>
+            <input
+              type="radio"
+              name="dispo"
+              className="mr-2"
+              onChange={() => setDisponibilite(null)}
+            />
+            Tout afficher
+          </label>
+          <label className="block">
+            <input
+              type="radio"
+              name="dispo"
+              className="mr-2"
+              onChange={() => setDisponibilite(true)}
+            />
+            Disponible
+          </label>
+          <label className="block">
+            <input
+              type="radio"
+              name="dispo"
+              className="mr-2"
+              onChange={() => setDisponibilite(false)}
+            />
+            Non disponible
+          </label>
         </>
       ),
     },
@@ -144,24 +144,25 @@ const BurgerMenufiltre = ({
       title: "Couleurs",
       content: (
         <>
-          {["Rouge", "Bleu", "Jaune", "Orange", "Blanc", "Violet", "Rose"].map((color) => (
-               <label key={color} className="block capitalize">
-               <input
-                 type="checkbox"
-                 name="color"
-                 className="mr-2"
-                 onChange={(e) => {
-                   if (e.target.checked) {
-                     setColor(color.toLowerCase());
-                   } else {
-                     setColor("");
-                   }
-                 }}
-               />
-               {color}
-             </label>
-            
-          ))}
+          {["Rouge", "Bleu", "Jaune", "Orange", "Blanc", "Violet", "Rose"].map(
+            (color) => (
+              <label key={color} className="block capitalize">
+                <input
+                  type="checkbox"
+                  name="color"
+                  className="mr-2"
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setColor(color.toLowerCase());
+                    } else {
+                      setColor("");
+                    }
+                  }}
+                />
+                {color}
+              </label>
+            ),
+          )}
         </>
       ),
     },
@@ -201,12 +202,12 @@ const BurgerMenufiltre = ({
             </div>
           ))}
           <button
-  type="button"
-  onClick={() => handleResetFilters()}
-  className="w-full text-center py-2 mt-4 bg-secondary rounded-4xl font-semibold"
->
-  Réinitialiser tous les filtres
-</button>
+            type="button"
+            onClick={() => handleResetFilters()}
+            className="w-full text-center py-2 mt-4 bg-secondary rounded-4xl font-semibold"
+          >
+            Réinitialiser tous les filtres
+          </button>
         </aside>
       )}
     </div>
