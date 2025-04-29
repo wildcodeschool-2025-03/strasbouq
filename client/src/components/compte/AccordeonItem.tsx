@@ -20,7 +20,7 @@ const AccordeonItem = ({ title, children }: AccordeonItemProps) => {
       </button>
       <div
         className={`mt-2 overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          isOpen ? "max-h-9999 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <div className="pt-2 bg-secondary text-sm pl-3 ">{children}</div>
