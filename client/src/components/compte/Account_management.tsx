@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Account_management({ onClose }: { onClose: () => void }) {
   const navigate = useNavigate();
@@ -29,6 +31,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
 
     // Sécurité au cas où aucun champs n'a été rempli
     if (mailInput === "" || passwordInput === "") {
+      toast.error("Veuillez renseigner tous les champs");
       return;
     }
 
@@ -37,9 +40,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
     // Si aucun utilisateur n'existe encore, crée un tableau contenant l'objet utilisateur
     if (storedData === null) {
       localStorage.setItem("users", JSON.stringify([account]));
-      alert(
-        `Votre compte a bien été crée - login: ${mailInput}, mot de passe: ${passwordInput}`,
-      );
+      toast.success(`${mailInput}, votre compte a bien été crée !`);
     }
 
     // Si un ou plusieurs compte existent déja...
@@ -50,22 +51,21 @@ function Account_management({ onClose }: { onClose: () => void }) {
       let isAlreadyExistant = false;
 
       for (const user of users) {
-        if (user.mail === mailInput) {
+        if (user.mail === mailInput || user.mail === "Admin") {
           isAlreadyExistant = true;
         }
       }
 
       // Si oui, on annule la création de compte ---- MESSAGE ERREUR A FAIRE
       if (isAlreadyExistant) {
+        toast.error("Ce mail est déja utilisé !");
         return;
       }
 
       // Si non, on crée le nouveau compte
       users.push(account);
       localStorage.setItem("users", JSON.stringify(users));
-      alert(
-        `Votre compte a bien été crée - login: ${mailInput}, mot de passe: ${passwordInput}`,
-      );
+      toast.success(`${mailInput}, votre compte a bien été crée !`);
     }
 
     // Nettoie les inputs une fois le bouton cliqué
@@ -78,12 +78,8 @@ function Account_management({ onClose }: { onClose: () => void }) {
     // Si c'est le compte administrateur
     if (mailInput === ADMIN_LOGIN && passwordInput === ADMIN_PASSWORD) {
       sessionStorage.setItem("currentUser", JSON.stringify("admin"));
-      alert("Bienvenue administrateur !");
-
-      // Passe à la page "administration" et ferme la modale
-      navigate("/Administration");
+      navigate(0);
       onClose();
-
       return;
     }
 
@@ -91,7 +87,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
 
     // Si aucun utilisateur n'existe dans la base de donnée
     if (storedData === null) {
-      alert("Aucun compte existant");
+      toast.error("Aucun compte existant");
       return;
     }
 
@@ -103,10 +99,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
 
       if (user.mail === mailInput && user.password === passwordInput) {
         sessionStorage.setItem("currentUser", JSON.stringify(user));
-
-        // Passe à la page "mon compte" et ferme la modale
-        alert(`Bienvenue ${mailInput}`);
-        navigate("/Compte");
+        navigate(0);
         onClose();
 
         return;
@@ -117,30 +110,21 @@ function Account_management({ onClose }: { onClose: () => void }) {
   };
 
   // -----------------------------------Fonction déconnexion---------------------------------------------------------
-  const logoutAccount = () => {
-    const storedData = sessionStorage.getItem("currentUser");
-
-    if (storedData != null) {
-      sessionStorage.removeItem("currentUser");
-    }
-
-    alert("Bien déconnecté");
-  };
-
   return (
     <>
       <h2 className="text-2xl font-bold text-secondary text-center mb-8">
-        Se connecter à mon compte
+        Accéder à mon compte
       </h2>
 
       <section className="flex flex-col mb-8">
-        <section className="flex justify-between">
+        <section className="flex justify-between mb-2">
           <p>Adresse mail :</p>
           <input
             type="text"
             value={mailInput}
             onChange={handleMailInputChange}
-            className="border-2 border-amber-950"
+            className="border-2 border-black text-secondary text-center w-6/10"
+            placeholder="exemple@mail.com"
           />
         </section>
 
@@ -150,42 +134,31 @@ function Account_management({ onClose }: { onClose: () => void }) {
             type="text"
             value={passwordInput}
             onChange={handlePasswordInputChange}
-            className="border-2 border-amber-950"
+            className="border-2 border-black text-secondary text-center w-6/10"
+            placeholder="Mon-mot-de-passe"
           />
         </section>
       </section>
 
-      <button
-        type="button"
-        onClick={createNewAccount}
-        className="border-2 border-amber-950"
-      >
-        Créer un nouveau compte
-      </button>
+      <section className="flex justify-center">
+        <button
+          type="button"
+          onClick={createNewAccount}
+          className="bg-secondary text-black w-40 rounded-full mr-8"
+        >
+          Créer compte
+        </button>
 
-      <button
-        type="button"
-        onClick={loginToAccount}
-        className="border-2 border-amber-950"
-      >
-        Se connecter
-      </button>
+        <button
+          type="button"
+          onClick={loginToAccount}
+          className="bg-secondary text-black w-40 rounded-full"
+        >
+          Se connecter
+        </button>
 
-      <button
-        type="button"
-        onClick={() => localStorage.removeItem("users")}
-        className="border-2 border-amber-950"
-      >
-        Supprimer la BDD utilisateur
-      </button>
-
-      <button
-        type="button"
-        onClick={logoutAccount}
-        className="border-2 border-amber-950"
-      >
-        Déconnection
-      </button>
+        <ToastContainer position="top-right" autoClose={3000} />
+      </section>
     </>
   );
 }
