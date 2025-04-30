@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import AccordeonItem from "./AccordeonItem";
-import Panier from "../../pages/Panier";
 
 interface itemsContenu {
   id: number;

@@ -9,7 +9,7 @@ function Valeurs({ title, description }: ValeursProps) {
       <h2 className="text-lg ml-8 pt-4 font-semibold text-secondary">
         {title}
       </h2>
-      <p className=" ml-8 w-[80%] pb-2 md:w-[90%]">{description}</p>
+      <p className=" ml-8 w-[82%] pb-2 md:w-[90%]">{description}</p>
     </>
   );
 }
