@@ -25,6 +25,12 @@ function Account_management({ onClose }: { onClose: () => void }) {
     setPasswordInput(event.target.value);
   };
 
+  // Vérification de si l'input est érellement une adresse mail
+  const isValidEmail = (email: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
   // --------------------------Fonction de création d'un nouveau compte utilisateur-------------------------------------------
   const createNewAccount = () => {
     const account = { mail: mailInput, password: passwordInput };
@@ -32,6 +38,11 @@ function Account_management({ onClose }: { onClose: () => void }) {
     // Sécurité au cas où aucun champs n'a été rempli
     if (mailInput === "" || passwordInput === "") {
       toast.error("Veuillez renseigner tous les champs");
+      return;
+    }
+
+    if (!isValidEmail(mailInput)) {
+      toast.error("Veuillez renseigner une adresse mail valide");
       return;
     }
 
@@ -51,7 +62,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
       let isAlreadyExistant = false;
 
       for (const user of users) {
-        if (user.mail === mailInput || user.mail === "Admin") {
+        if (user.mail === mailInput || mailInput === ADMIN_LOGIN) {
           isAlreadyExistant = true;
         }
       }
@@ -75,6 +86,12 @@ function Account_management({ onClose }: { onClose: () => void }) {
 
   // --------------------------------Fonction de connexion au compte utilisateur--------------------------------------------
   const loginToAccount = () => {
+    // Si le login n'est pas une adresse mail
+    if (mailInput !== ADMIN_LOGIN && !isValidEmail(mailInput)) {
+      toast.error("Veuillez renseigner une adresse mail valide");
+      return;
+    }
+
     // Si c'est le compte administrateur
     if (mailInput === ADMIN_LOGIN && passwordInput === ADMIN_PASSWORD) {
       sessionStorage.setItem("currentUser", JSON.stringify("admin"));
@@ -120,7 +137,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
         <section className="flex justify-between mb-2">
           <p>Adresse mail :</p>
           <input
-            type="text"
+            type="email"
             value={mailInput}
             onChange={handleMailInputChange}
             className="border-2 border-black text-secondary text-center w-6/10"
