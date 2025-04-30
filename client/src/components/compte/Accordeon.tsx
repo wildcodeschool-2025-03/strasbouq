@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import AccordeonItem from "./AccordeonItem";
-import Panier from "../../pages/Panier";
 
 interface itemsContenu {
   id: number;
@@ -9,6 +8,13 @@ interface itemsContenu {
   description: string;
   prix: number;
   image_url: string;
+}
+
+interface Utilisateur {
+  mail: string;
+  reservation: Article[];
+  validated: Article[];
+  refused: Article[];
 }
 
 interface Article {
@@ -79,12 +85,34 @@ function Accordeon() {
         )}
       </AccordeonItem>
 
-      <AccordeonItem title="Mes réservations annulées">
-        <p>Contenu de la section 3.</p>
+      <AccordeonItem title="Mes réservations refusées">
+        {currentUser?.refused && currentUser.refused.length > 0 ? (
+          <ul className="list-disc list-inside space-y-2">
+            {currentUser.refused.map((article) => (
+              <li key={article.flower.id}>
+                {article.flower.nom} – Prix : {article.flower.prix}€ – Quantité
+                : {article.quantity}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Pas de réservation en cours</p>
+        )}
       </AccordeonItem>
 
       <AccordeonItem title="Historique de mes commandes">
-        <p>Contenu de la section 3.</p>
+        {currentUser?.validated && currentUser.validated.length > 0 ? (
+          <ul className="list-disc list-inside space-y-2">
+            {currentUser.validated.map((article) => (
+              <li key={article.flower.id}>
+                {article.flower.nom} – Prix : {article.flower.prix}€ – Quantité
+                : {article.quantity}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Pas de réservation en cours</p>
+        )}
       </AccordeonItem>
 
       <button
