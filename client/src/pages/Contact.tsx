@@ -1,4 +1,5 @@
 import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -36,76 +37,96 @@ function Contact() {
   };
 
   return (
-    <section className="bg-white">
-      <h1 className="text-center text-secondary m-4 text-3xl p-5">Contact</h1>
-      <section className="md:flex items-center flex-row-reverse justify-around ">
-        <section className="space-y-7 p-5 m-5 md:w-1/2 md:space-y-20 md:none-text-center md:flex flex-col md:algn-items-center">
-          <p>
-            <i className="text-4xl mr-2 bi bi-telephone-fill" />
+    <section className="bg-white py-10 px-5">
+      <motion.h1
+        className="text-2xl font-bold text-secondary text-center mb-8"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+      >
+        Contact
+      </motion.h1>
+
+      <section className="md:flex items-center flex-row-reverse justify-around gap-8">
+        {/* Infos de contact */}
+        <motion.section
+          className="space-y-7 p-5 m-5 md:w-1/2 text-lg text-gray-700"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <p className="flex items-center hover:scale-105 transition-transform duration-300">
+            <i className="text-3xl mr-6 bi bi-telephone-fill" />
             09 748 885
           </p>
-          <p>
-            <i className="text-4xl mr-2 bi bi-geo-fill" />7 Rue des Tonneliers
+          <p className="flex items-center hover:scale-105 transition-transform duration-300">
+            <i className="text-3xl mr-6 bi bi-geo-fill" />7 Rue des Tonneliers,
             67000 Strasbourg
           </p>
-          <p>
-            <i className="text-4xl mr-2 bi bi-envelope-fill" />
-            contact@lejardinalsacien.com
+          <p className="flex items-center hover:scale-105 transition-transform duration-300">
+            <i className="text-3xl mr-6 bi bi-envelope-fill" />
+            contact@lejardinalsacien.fr
           </p>
-          <p>
+          <p className="flex items-center hover:scale-105 transition-transform duration-300">
             <a href="https://www.instagram.com/">
-              <i className="text-4xl mr-2 bi bi-instagram" />
+              <i className="text-3xl mr-6 bi bi-instagram" />
             </a>
             @LeJardienAlsacien
           </p>
-        </section>
+        </motion.section>
 
-        <section className="p-5 m-7 bg-primary rounded-md md:w-1/2 ">
+        {/* Formulaire */}
+        <motion.section
+          className="bg-primary p-8 rounded-lg shadow-lg md:w-1/2"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
           <form ref={form} onSubmit={sendEmail} className="flex flex-col gap-2">
             <label htmlFor="name">Nom :</label>
             <input
               type="text"
               id="name"
               name="name"
-              className="bg-[#f8f8f8] border-2 border-secondary rounded-md p-2"
+              className="w-full bg-[#f8f8f8] border-2 border-secondary rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-secondary transition"
             />
             <label htmlFor="email">Email :</label>
             <input
               type="email"
               id="email"
               name="email"
-              className="bg-[#f8f8f8] border-2 border-secondary rounded-md p-2"
+              className="bg-[#f8f8f8] border-2 border-secondary rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-secondary transition"
             />
             <label htmlFor="telephone">Téléphone :</label>
             <input
               type="text"
               id="telephone"
               name="telephone"
-              className="bg-[#f8f8f8] border-2 border-secondary rounded-md p-2"
+              className="bg-[#f8f8f8] border-2 border-secondary rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-secondary transition"
             />
             <label htmlFor="objet">Objet :</label>
             <input
               type="text"
               id="objet"
               name="objet"
-              className="bg-[#f8f8f8] border-2 border-secondary rounded-md p-2"
+              className="bg-[#f8f8f8] border-2 border-secondary rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-secondary transition"
             />
             <label htmlFor="message">Message :</label>
             <textarea
               id="message"
               name="message"
               rows={7}
-              className="bg-[#f8f8f8] border-2 border-secondary rounded-md p-2"
+              className="bg-[#f8f8f8] border-2 border-secondary rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-secondary transition"
             />
             <button
               type="submit"
               disabled={loading}
-              className="bg-secondary p-2 rounded-md hover:opacity-90 "
+              className="bg-secondary text-white p-3 rounded-md font-semibold hover:scale-105 transition-transform duration-300 disabled:opacity-50"
             >
               {loading ? "Envoi en cours..." : "Envoyer"}
             </button>
           </form>
-        </section>
+        </motion.section>
       </section>
 
       <ToastContainer position="top-right" autoClose={3000} />
