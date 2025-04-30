@@ -37,7 +37,7 @@ function Header() {
 
   return (
     <>
-      <section className="grid grid-cols-[auto_1fr_auto] items-center px-4 py-2">
+      <section className="bg-white grid grid-cols-[auto_1fr_auto] items-center px-4 py-2">
         <article className="justify-self-start">
           <button
             type="button"
@@ -110,8 +110,8 @@ function Header() {
         </article>
       </section>
 
-      <div className="text-container">
-        <hr className="my-2 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-75 dark:via-neutral-800" />
+      <div className="text-contain">
+        <hr className="my-8 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-75 dark:via-neutral-800" />
       </div>
 
       {/* -----------------------------------MODALE------------------------------------ */}
