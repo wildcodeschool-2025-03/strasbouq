@@ -1,5 +1,5 @@
 import { ChevronDown, ChevronUp, SlidersHorizontal } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface Props {
   setColor: (value: string) => void;
@@ -18,10 +18,29 @@ const BurgerMenufiltre = ({
 }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const toggleSection = (title: string) => {
     setOpenSection(openSection === title ? null : title);
   };
+
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setIsMenuOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMenuOpen, handleClickOutside]);
 
   const handlePriceCategoryChange = (event: string) => {
     if (event === "low") {
@@ -181,34 +200,36 @@ const BurgerMenufiltre = ({
       </button>
 
       {isMenuOpen && (
-        <aside className="absolute top-12 left-0 z-50 w-72 p-4 bg-white rounded-xl shadow-lg">
-          {sections.map(({ title, content }) => (
-            <div key={title} className="py-2 w-full">
-              <button
-                type="button"
-                onClick={() => toggleSection(title)}
-                className="w-full flex items-center justify-between text-left font-medium text-gray-800 hover:text-black"
-              >
-                {title}
-                {openSection === title ? (
-                  <ChevronUp size={20} />
-                ) : (
-                  <ChevronDown size={20} />
+        <div ref={menuRef}>
+          <aside className="absolute top-12 left-0 z-50 w-72 p-4 bg-white rounded-xl shadow-lg">
+            {sections.map(({ title, content }) => (
+              <div key={title} className="py-2 w-full">
+                <button
+                  type="button"
+                  onClick={() => toggleSection(title)}
+                  className="w-full flex items-center justify-between text-left font-medium text-gray-800 hover:text-black"
+                >
+                  {title}
+                  {openSection === title ? (
+                    <ChevronUp size={20} />
+                  ) : (
+                    <ChevronDown size={20} />
+                  )}
+                </button>
+                {openSection === title && (
+                  <div className="mt-2 ml-2 space-y-1">{content}</div>
                 )}
-              </button>
-              {openSection === title && (
-                <div className="mt-2 ml-2 space-y-1">{content}</div>
-              )}
-            </div>
-          ))}
-          <button
-            type="button"
-            onClick={() => handleResetFilters()}
-            className="w-full text-center py-2 mt-4 bg-secondary rounded-4xl font-semibold"
-          >
-            Réinitialiser tous les filtres
-          </button>
-        </aside>
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={() => handleResetFilters()}
+              className="w-full text-center py-2 mt-4 bg-secondary rounded-4xl font-semibold transition-transform transform-gpu active:focus:outline-2 focus:outline-offset-2 focus:outline-[#ce9170] active:bg-white"
+            >
+              Réinitialiser tous les filtres
+            </button>
+          </aside>
+        </div>
       )}
     </div>
   );

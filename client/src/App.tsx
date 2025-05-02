@@ -1,23 +1,28 @@
 import { Outlet } from "react-router";
-
-import "./App.css";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
+import { ThemeProvider, setDarkMode } from "./contextes/ThemeContext";
+import "./App.css";
 
-function App() {
+function AppContent() {
+  const { theme } = setDarkMode();
+
   return (
-    <section>
-      {/* Header */}
+    <section className={theme === "light" ? "text-base" : "text-2xl"}>
       <Header />
-
-      {/* Main */}
       <main>
         <Outlet />
       </main>
-
-      {/* Footer */}
       <Footer />
     </section>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 
