@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { Link } from "react-router";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -107,7 +106,6 @@ function Header() {
         <hr className="my-6 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-75 dark:via-neutral-800" />
       </div>
 
-      {/* Overlay pour clic extérieur */}
       {isMenuOpen && (
         <div
           role="button"
@@ -123,7 +121,6 @@ function Header() {
         />
       )}
 
-      {/* Menu déroulant mobile */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.nav
@@ -154,21 +151,36 @@ function Header() {
         )}
       </AnimatePresence>
 
-      {/* MODALE COMPTE */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 bg-opacity-50">
-          <div className="bg-white p-6 rounded-2xl relative w-full max-w-md">
-            <button
-              type="button"
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-2 right-2 text-primary hover:text-secondary text-2xl"
+      {/* MODALE COMPTE animée */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={handleCloseModal}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white p-6 rounded-2xl relative w-full max-w-md"
+              onClick={(e) => e.stopPropagation()} // évite que le clic sur la boîte ferme la modale
             >
-              &times;
-            </button>
-            <Account_management onClose={handleCloseModal} />
-          </div>
-        </div>
-      )}
+              <button
+                type="button"
+                onClick={handleCloseModal}
+                className="absolute top-2 right-2 text-primary hover:text-secondary text-2xl"
+              >
+                &times;
+              </button>
+              <Account_management onClose={handleCloseModal} />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <ToastContainer position="top-left" autoClose={1500} />
     </>
