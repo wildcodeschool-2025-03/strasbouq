@@ -53,8 +53,10 @@ function Catalogue_accueil() {
   return (
     <>
       {/* Titre */}
-      <div className="flex justify-center text-secondary pt-7">
-        <h1>Réservez toutes vos fleurs, depuis chez vous.</h1>
+      <div className="flex justify-center text-secondary pt-7 pb-10">
+        <h1 className="font-bold">
+          Réservez toutes vos fleurs, depuis chez vous.
+        </h1>
       </div>
 
       <section className="flex items-center justify-center gap-4 my-10">
@@ -83,7 +85,7 @@ function Catalogue_accueil() {
         <Link to="./Catalogue">
           <button
             type="button"
-            className="bg-[#CE9170] px-4 py-2 rounded-full text-black"
+            className="bg-[#CE9170] px-4 py-2 rounded-full text-black font-bold"
           >
             Retrouvez notre
             <br />
