@@ -51,7 +51,7 @@ function Catalogue_accueil() {
   }
 
   return (
-    <>
+    <section>
       {/* Titre */}
       <div className="flex justify-center text-secondary pt-7">
         <h1>Réservez toutes vos fleurs, depuis chez vous.</h1>
@@ -91,7 +91,7 @@ function Catalogue_accueil() {
           </button>
         </Link>
       </div>
-    </>
+    </section>
   );
 }
 

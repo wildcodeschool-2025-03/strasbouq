@@ -59,7 +59,7 @@ function Catalogue() {
   }, [flowerTri]);
 
   return (
-    <>
+    <section className="bg-white">
       <BurgerMenuFiltre
         setColor={setColor}
         setDisponibilite={setDisponibilite}
@@ -72,7 +72,7 @@ function Catalogue() {
           <Contenu item={item} key={item.id} />
         ))}
       </section>
-    </>
+    </section>
   );
 }
 

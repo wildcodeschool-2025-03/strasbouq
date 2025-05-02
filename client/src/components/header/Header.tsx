@@ -56,7 +56,6 @@ function Header() {
             >
               <i className="bi bi-list text-3xl" />
             </button>
-
             <nav className="pl-10 hidden md:block">
               <ul className="flex gap-16">
                 <li>
@@ -102,9 +101,8 @@ function Header() {
           </article>
         </header>
       </section>
-
-      <div className="text-container">
-        <hr className="my-6 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-75 dark:via-neutral-800" />
+      <div className="text-contain">
+        <hr className="my-8 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-75 dark:via-neutral-800" />
       </div>
 
       {/* Overlay pour clic extérieur */}
