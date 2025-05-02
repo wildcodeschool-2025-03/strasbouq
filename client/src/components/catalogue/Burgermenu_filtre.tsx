@@ -20,6 +20,11 @@ const BurgerMenufiltre = ({
   const [openSection, setOpenSection] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
+  const [selectedColor, setSelectedColor] = useState<string>("");
+  const [selectedDispo, setSelectedDispo] = useState<boolean | null>(null);
+  const [selectedOrder, setSelectedOrder] = useState<boolean>(false);
+  const [selectedPriceRange, setSelectedPriceRange] = useState<string>("");
+
   const toggleSection = (title: string) => {
     setOpenSection(openSection === title ? null : title);
   };
@@ -42,11 +47,12 @@ const BurgerMenufiltre = ({
     };
   }, [isMenuOpen, handleClickOutside]);
 
-  const handlePriceCategoryChange = (event: string) => {
-    if (event === "low") {
+  const handlePriceCategoryChange = (value: string) => {
+    setSelectedPriceRange(value);
+    if (value === "low") {
       setMinPrice(0);
       setMaxPrice(45);
-    } else if (event === "high") {
+    } else if (value === "high") {
       setMinPrice(46);
       setMaxPrice(100);
     } else {
@@ -56,6 +62,11 @@ const BurgerMenufiltre = ({
   };
 
   const handleResetFilters = () => {
+    setSelectedColor("");
+    setSelectedDispo(null);
+    setSelectedOrder(false);
+    setSelectedPriceRange("");
+
     setColor("");
     setDisponibilite(null);
     setOrder(false);
@@ -73,7 +84,8 @@ const BurgerMenufiltre = ({
               type="radio"
               name="price"
               className="mr-2"
-              onChange={(e) => handlePriceCategoryChange(e.target.value)}
+              checked={selectedPriceRange === ""}
+              onChange={() => handlePriceCategoryChange("")}
             />
             Tout afficher
           </label>
@@ -83,6 +95,7 @@ const BurgerMenufiltre = ({
               name="price"
               className="mr-2"
               value="low"
+              checked={selectedPriceRange === "low"}
               onChange={(e) => handlePriceCategoryChange(e.target.value)}
             />
             ≤ 45€
@@ -93,6 +106,7 @@ const BurgerMenufiltre = ({
               name="price"
               className="mr-2"
               value="high"
+              checked={selectedPriceRange === "high"}
               onChange={(e) => handlePriceCategoryChange(e.target.value)}
             />
             ≥ 50€
@@ -109,7 +123,11 @@ const BurgerMenufiltre = ({
               type="radio"
               name="order"
               className="mr-2"
-              onChange={() => setOrder(true)}
+              checked={selectedOrder === true}
+              onChange={() => {
+                setSelectedOrder(true);
+                setOrder(true);
+              }}
             />
             Ordre croissant
           </label>
@@ -118,7 +136,11 @@ const BurgerMenufiltre = ({
               type="radio"
               name="order"
               className="mr-2"
-              onChange={() => setOrder(false)}
+              checked={selectedOrder === false}
+              onChange={() => {
+                setSelectedOrder(false);
+                setOrder(false);
+              }}
             />
             Ordre décroissant
           </label>
@@ -134,7 +156,11 @@ const BurgerMenufiltre = ({
               type="radio"
               name="dispo"
               className="mr-2"
-              onChange={() => setDisponibilite(null)}
+              checked={selectedDispo === null}
+              onChange={() => {
+                setSelectedDispo(null);
+                setDisponibilite(null);
+              }}
             />
             Tout afficher
           </label>
@@ -143,7 +169,11 @@ const BurgerMenufiltre = ({
               type="radio"
               name="dispo"
               className="mr-2"
-              onChange={() => setDisponibilite(true)}
+              checked={selectedDispo === true}
+              onChange={() => {
+                setSelectedDispo(true);
+                setDisponibilite(true);
+              }}
             />
             Disponible
           </label>
@@ -152,7 +182,11 @@ const BurgerMenufiltre = ({
               type="radio"
               name="dispo"
               className="mr-2"
-              onChange={() => setDisponibilite(false)}
+              checked={selectedDispo === false}
+              onChange={() => {
+                setSelectedDispo(false);
+                setDisponibilite(false);
+              }}
             />
             Non disponible
           </label>
@@ -170,12 +204,11 @@ const BurgerMenufiltre = ({
                   type="checkbox"
                   name="color"
                   className="mr-2"
+                  checked={selectedColor === color.toLowerCase()}
                   onChange={(e) => {
-                    if (e.target.checked) {
-                      setColor(color.toLowerCase());
-                    } else {
-                      setColor("");
-                    }
+                    const value = e.target.checked ? color.toLowerCase() : "";
+                    setSelectedColor(value);
+                    setColor(value);
                   }}
                 />
                 {color}
