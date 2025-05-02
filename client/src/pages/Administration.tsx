@@ -39,8 +39,6 @@ function Administration() {
   };
 
   useEffect(() => {
-    const clientAvecCommande: Utilisateur[] = [];
-
     const storedData = localStorage.getItem("users");
 
     if (!storedData) {
@@ -50,11 +48,12 @@ function Administration() {
 
     const users: Utilisateur[] = JSON.parse(storedData);
 
-    for (const user of users) {
-      if (user.reservation && user.reservation.length >= 1) {
-        clientAvecCommande.push(user);
-      }
-    }
+    const clientAvecCommande = users.filter(
+      (user) =>
+        (user.reservation && user.reservation.length > 0) ||
+        (user.validated && user.validated.length > 0) ||
+        (user.refused && user.refused.length > 0),
+    );
 
     setClients(clientAvecCommande);
   }, []);
@@ -72,7 +71,7 @@ function Administration() {
 
   return (
     <div>
-      <AccordeonItem title="Mes informations">
+      <AccordeonItem title="Réservation à valider">
         <div>
           <h1>Liste des réservations en cours :</h1>
 
@@ -105,7 +104,7 @@ function Administration() {
         </div>
       </AccordeonItem>
 
-      <AccordeonItem title="2">
+      <AccordeonItem title="Réservations acceptées">
         <div>
           <h1>Liste des réservations acceptées :</h1>
           {/* Liste des clients avec réservation acceptée */}
@@ -136,7 +135,7 @@ function Administration() {
         </div>
       </AccordeonItem>
 
-      <AccordeonItem title="2">
+      <AccordeonItem title="Réservations refusées">
         <div>
           <h1>Liste des réservations refusées :</h1>
           {/* Liste des clients avec réservation refusée */}
