@@ -23,7 +23,7 @@ const AccordeonItem = ({ title, children }: AccordeonItemProps) => {
           isOpen ? "max-h-9999 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="pt-2 bg-secondary text-sm pl-3 ">{children}</div>
+        <div className="pt-2 bg-secondary text-sm ">{children}</div>
       </div>
     </div>
   );
