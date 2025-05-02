@@ -68,7 +68,9 @@ function Accueil() {
             </p>
           </div>
         </section>
-
+        <section>
+          <img src="./public/assets/fleuriste.jpeg" alt="fleuriste" />
+        </section>
         <section className="bg-white">
           <h2 className="text-secondary text-center text-2xl font-bold pt-7">
             Nos valeurs
