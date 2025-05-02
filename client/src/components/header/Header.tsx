@@ -46,6 +46,26 @@ function Header() {
 
   return (
     <>
+      <motion.div
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="w-full bg-[#CE9170] text-white text-center py-2 text-base font-semibold"
+      >
+        Sur tous les bouquets - Code promo :{" "}
+        <motion.span
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{
+            repeat: Number.POSITIVE_INFINITY,
+            duration: 1.5,
+            ease: "easeInOut",
+          }}
+          className="inline-block text-white"
+        >
+          wild20
+        </motion.span>
+      </motion.div>
+
       <section className="relative">
         <header className="grid grid-cols-[auto_1fr_auto] items-center px-4 py-2 bg-white-100 z-10">
           <article className="justify-self-start">
