@@ -65,7 +65,7 @@ function Accordeon() {
   };
 
   return (
-    <div className="mt-4 w-[80%] ml-5 pb-4 md:w-[50%] xl:w-[33%] xl:pb-1">
+    <div className=" mt-4 w-[80%] ml-5 pb-4 md:w-[50%] xl:w-[33%] xl:pb-1">
       <AccordeonItem title="Mes informations">
         <p>Mail: {currentUser?.mail}</p>
         <p>Mot de passe: {currentUser?.password}</p>
