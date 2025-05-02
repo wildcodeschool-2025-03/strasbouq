@@ -1,7 +1,6 @@
 import Valeurs from "../components/about/Valeurs";
 
 function About() {
-
   const tableauValeurs = [
     {
       title: "1. Amitié & Passion",
@@ -32,18 +31,24 @@ function About() {
 
   return (
     <section className="bg-white">
-      <section className="bg-primary">
-        <h2 className="text-center text-2xl font-semibold pt-4">
-          Histoire de l'entreprise
+      <section className="bg-primary mt-12 ">
+        <h2 className="text-center text-secondary text-2xl font-extrabold pt-7 w-2/3 mx-auto">
+          Le Jardin Alsacien
         </h2>
-        <p className="text-center mx-auto w-[80%] pt-3 pb-5 ">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo, natus
-          quibusdam. Reprehenderit, deleniti quia? Excepturi eum tempore alias
-          pariatur delectus repudiandae impedit repellat earum, ad, dignissimos
-          velit possimus facere quam maxime minima, voluptates vel deserunt
-          distinctio cum quod illum laudantium eligendi iste odio. Quo optio
-          adipisci eum et quae fuga fugiat mollitia architecto odio ab. Ex
-          nostrum magnam perferendis magni!
+        <h3 className=" text-xl pt-2 text-center font-semibold w-2/3 mx-auto">
+          une histoire florissante au cœur de la tradition
+        </h3>
+        <p className="text-center mx-auto w-[79%] pt-5 pb-6 ">
+          Fondé en 1998 près de Strasbourg, Le Jardin Alsacien est une
+          entreprise familiale spécialisée dans la vente de bouquets artisanaux.
+          Inspirée par les traditions florales alsaciennes, elle propose des
+          créations de saison réalisées à partir de fleurs locales, avec un
+          souci constant de qualité et de respect de l’environnement. D’abord
+          présent sur les marchés régionaux, l’atelier s’est développé avec
+          l’ouverture d’une boutique en ligne, permettant la livraison de
+          bouquets dans toute la France. Aujourd’hui, Le Jardin Alsacien mêle
+          authenticité et modernité, en offrant aussi bien des compositions pour
+          événements que des abonnements floraux.
         </p>
         <img src="./public/ImgAbout.png" alt="interieur magasin" />
       </section>
@@ -51,7 +56,7 @@ function About() {
       <section>
         <h2 className=" text-2xl ml-8 font-semibold pt-8">Nos valeurs</h2>
       </section>
-      <section>
+      <section className="mb-8">
         {tableauValeurs.map((valeur) => (
           <Valeurs
             key={valeur.title}
@@ -62,7 +67,6 @@ function About() {
       </section>
     </section>
   );
-
 }
 
 export default About;

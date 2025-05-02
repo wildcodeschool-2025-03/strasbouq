@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import Paiement from "../components/compte/Paiement";
+import { getCurrentUserData } from "../components/fonctions";
 import ContenuPanier from "../components/panier/Contenue_panier";
 
 interface itemsContenu {
@@ -9,73 +11,161 @@ interface itemsContenu {
   image_url: string;
 }
 
-interface Utilisateur {
-  mail: string;
-  panier: itemsContenu[] | null;
+interface Article {
+  flower: itemsContenu;
+  quantity: number;
 }
 
+interface Utilisateur {
+  mail: string;
+  panier: Article[];
+  reservation: Article[];
+}
+
+// Ajout au panier
 function Panier() {
-  const [panier, setPanier] = useState<itemsContenu[]>([]);
+  const [panier, setPanier] = useState<Article[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const listUser = localStorage.getItem("users");
-    if (listUser === null) {
-      alert("Veuillez vous connecter");
-      return;
-    }
-    const users: Utilisateur[] = JSON.parse(listUser);
-
-    const userConnected = sessionStorage.getItem("currentUser");
-    if (userConnected === null) {
-      alert("Veuillez vous connecter");
-      return;
-    }
-    const connected = JSON.parse(userConnected);
-
-    const user = users.find((u) => u.mail === connected.mail);
-
+    const user = getCurrentUserData();
     if (!user || !user.panier || user.panier.length === 0) {
-      alert("Mon panier est vide");
     } else {
       setPanier(user.panier);
     }
   }, []);
 
+  // Fonction fermeture de la modale (pour passer à l'enfant)
+  const handleCloseModal = () => setIsModalOpen(false);
+  const handleOpenModal = () => setIsModalOpen(true);
+
+  const updatePanier = (newPanier: Article[]) => {
+    setPanier(newPanier);
+  };
+
+  // Passage de commande
+  const payCart = () => {
+    handleCloseModal();
+
+    // Récupère les datas de la personne connectée
+    const storedData = localStorage.getItem("users");
+    if (storedData === null) {
+      alert("Aucun compte existant");
+      return;
+    }
+
+    const users: Utilisateur[] = JSON.parse(storedData);
+
+    const userStoredData = sessionStorage.getItem("currentUser");
+    if (userStoredData === null) {
+      alert("veuillez vous connecter");
+      return;
+    }
+    const userConnected = JSON.parse(userStoredData);
+    const user = users.find((u: Utilisateur) => u.mail === userConnected.mail);
+
+    if (!user) {
+      alert("Utilisateur non trouvé");
+      return;
+    }
+
+    // Si panier vide
+    if (!user || !user.panier || user.panier.length === 0) {
+      alert("Votre panier est vide, rien à payer !");
+      return;
+    }
+
+    // Si il n'y avait pas déja une résa en cours
+    if (!user.reservation) {
+      user.reservation = [];
+      user.reservation = user.panier;
+    }
+
+    // Si il y a déja une réservation
+    else {
+      for (const article of user.panier) {
+        user.reservation.push(article);
+      }
+    }
+
+    // Vider le panier
+    user.panier = [];
+    setPanier(user.panier);
+
+    // Enregistrer la réservation
+    localStorage.setItem("users", JSON.stringify(users));
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col lg:flex-row gap-12">
-      {/* Récapitulatif  */}
-      <div className="order-1 lg:order-2 w-full lg:w-[350px] bg-primary p-6 rounded-xl shadow-md h-fit">
-        <h3 className="text-xl font-semibold mb-4 text-secondary">
+      {/* Récapitulatif */}
+      <div className="order-1 lg:order-2 w-full lg:w-[350px] bg-[#F5ECE6] p-6 rounded-xl shadow-md h-fit">
+        <h3 className="text-xl font-semibold mb-4 text-[#B67152]">
           Récapitulatif
         </h3>
         <div className="flex justify-between mb-2 text-sm">
           <span>Code promo</span>
           <span className="font-mono bg-white px-2 py-1 rounded border border-gray-300">
-            WILD20
+            YAVUZ20
           </span>
         </div>
         <hr className="my-4" />
         <div className="flex justify-between text-lg font-bold mb-6">
           <span>TOTAL</span>
           <span>
-            {panier.reduce((total, item) => total + item.prix, 0).toFixed(2)} €
+            {panier
+              .reduce(
+                (total, item) => total + item.flower.prix * item.quantity,
+                0,
+              )
+              .toFixed(2)}{" "}
+            €
           </span>
         </div>
         <button
           type="button"
-          className="bg-secondary hover:bg-[#b87c5d] text-white w-full py-3 rounded-md transition"
+          className="bg-[#CE9170] hover:bg-[#b87c5d] text-white w-full py-3 rounded-md transition"
+          onClick={handleOpenModal}
         >
-          Paiement
+          Procéder au paiement
         </button>
       </div>
+
+      {/* Modale de paiement */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 bg-opacity-50">
+          <div className="bg-white p-6 rounded-2xl relative w-full max-w-md">
+            <button
+              type="button"
+              onClick={handleCloseModal}
+              className="absolute top-2 right-2 text-primary hover:text-secondary text-2xl"
+            >
+              &times;
+            </button>
+
+            {/* Contenu de la modale */}
+            <Paiement payCartChild={payCart} />
+          </div>
+        </div>
+      )}
 
       {/* Mon panier */}
       <div className="order-2 lg:order-1 flex-1">
         <h2 className="text-2xl font-bold mb-8 text-[#B67152]">Mon panier</h2>
+
         {panier.length === 0 ? (
           <p className="text-center text-gray-600">Votre panier est vide.</p>
         ) : (
-          panier.map((item) => <ContenuPanier key={item.id} item={item} />)
+          panier.map((item) => (
+            <article key={item.flower.id} className="flex gap-8">
+              <ContenuPanier
+                item={item}
+                updatePanier={updatePanier}
+                panier={panier}
+              />
+              <p>x{item.quantity}</p>
+            </article>
+          ))
         )}
       </div>
     </div>

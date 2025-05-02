@@ -4,6 +4,36 @@ Variables enregistrées :
 
 Tableau d'objet users = [{mail, password}]
 
+Le tableau user peut également contenir un tableau panier = [{mail, password, panier[]}]
+Le panier est lui même un tableau contenant des objets "article" : article {flower, quantity}
+
+La base de donnée ressemblera donc probablement à cela :
+
+base de donnée = 
+[
+    {mail : guillaume@gmail.com
+    password : 123
+    panier = 
+    [
+        {flower : bouquet n°1, quantity : 2},
+        {flower : bouquet n°13, quantity : 1},
+    ]},
+    reservation = 
+    [
+        {flower : bouquet n°1, quantity : 2},
+        {flower : bouquet n°13, quantity : 1},
+    ]},
+    
+    {mail : arno@gmail.com
+    password : 001
+    panier = 
+    [
+        {flower : bouquet n°2, quantity : 1},
+        {flower : bouquet n°7, quantity : 1},
+        {flower : bouquet n°5, quantity : 5},
+    ]},
+]
+
 2) Utilisateur actuel
 
 Variable currentUser qui contient :
