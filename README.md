@@ -1,4 +1,75 @@
-# strasbouq
+# 🌸 Le Jardin Alsacien
+
+**Le Jardin Alsacien** est un site de réservation de bouquets de fleurs, avec paiement en ligne et retrait en boutique.
+
+## 🚀 Fonctionnalités
+
+- Navigation fluide dans le site avec React Router  
+- Visualisation du catalogue de bouquets avec filtres dynamiques  
+- Création de compte & authentification utilisateur  
+- Ajout de bouquets au panier  
+- Paiement en ligne intégré  
+- Suivi des commandes en cours ou archivées  
+- Back-office :  
+  - Visualisation des commandes passées par les clients  
+  - Acceptation ou refus des commandes selon le stock  
+  - Historique des commandes  
+
+## 🛠️ Technologies utilisées
+
+- React  
+- TypeScript  
+- Tailwind CSS  
+- Framer Motion  
+- Lucide Icons  
+- React Router  
+- Node.js (API)  
+- LocalStorage pour la persistance du panier et des utilisateurs  
+- Variables d’environnement `.env`  
+
+## ⚙️ Installation
+
+### 1. Cloner le projet
+
+git clone https://github.com/votre-utilisateur/le-jardin-alsacien.git  
+cd le-jardin-alsacien
+
+### 2. Installer les dépendances
+
+npm install                            # Dépendances de base du projet (React, etc.)  
+npm install react-router               # Gestion des routes côté client  
+npm install tailwindcss                # Framework CSS utilitaire  
+npm install @tailwindcss/forms         # Plugin Tailwind pour styliser les formulaires  
+npm install framer-motion              # Animations fluides avec Framer Motion  
+npm install lucide-react               # Icônes vectorielles élégantes (Lucide)  
+npm install bootstrap-icons            # Icônes Bootstrap (utilisées dans le header, panier, etc.)  
+npm install react-toastify             # Notifications toast pour les alertes (connexion, panier, etc.)
+
+### 3. Configurer les variables d'environnement
+
+Créer un fichier `.env` à la racine avec :  
+VITE_API_URL=http://localhost:3000
+
+### 4. Lancer le serveur de développement
+
+npm run dev
+
+## 📂 Structure du projet
+
+/frontend          → Interface utilisateur React  
+/backend           → API Node.js (si applicable)  
+/compte            → Espace utilisateur (auth, compte)  
+/catalogue         → Catalogue avec filtres  
+/administration    → Espace de gestion admin  
+
+## 📝 Licence
+
+Projet développé à des fins pédagogiques ou personnelles.  
+Tous droits réservés © Le Jardin Alsacien.
+
+Pour toute remarque, amélioration ou bug : ouvrez une issue ou une pull request.
+
+
 
 Ce projet est un monorepo JS, suivant l'architecture React-Express-MySQL telle qu'enseignée à la Wild Code School (v7.2.3) :
 
