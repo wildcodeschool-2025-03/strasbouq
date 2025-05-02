@@ -58,9 +58,7 @@ function Catalogue_accueil() {
     <section>
       {/* Titre */}
       <div className="flex justify-center text-secondary pt-7 pb-10">
-        <h1 className="font-bold">
-          Réservez toutes vos fleurs, depuis chez vous.
-        </h1>
+        <h1>Réservez toutes vos fleurs, depuis chez vous.</h1>
       </div>
 
       <section className="flex items-center justify-center gap-4 my-10">
