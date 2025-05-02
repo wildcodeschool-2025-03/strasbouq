@@ -32,7 +32,7 @@ function Accueil() {
   ];
 
   return (
-    <>
+    <section className="bg-white">
       <Catalogue_accueil />
 
       <section className="bg-primary">
@@ -88,7 +88,7 @@ function Accueil() {
           </div>
         </section>
       </section>
-    </>
+    </section>
   );
 }
 

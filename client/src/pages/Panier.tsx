@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Paiement from "../components/compte/Paiement";
 import { getCurrentUserData } from "../components/fonctions";
 import ContenuPanier from "../components/panier/Contenue_panier";
 
@@ -24,6 +25,7 @@ interface Utilisateur {
 // Ajout au panier
 function Panier() {
   const [panier, setPanier] = useState<Article[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const user = getCurrentUserData();
@@ -33,12 +35,18 @@ function Panier() {
     }
   }, []);
 
+  // Fonction fermeture de la modale (pour passer à l'enfant)
+  const handleCloseModal = () => setIsModalOpen(false);
+  const handleOpenModal = () => setIsModalOpen(true);
+
   const updatePanier = (newPanier: Article[]) => {
     setPanier(newPanier);
   };
 
   // Passage de commande
   const payCart = () => {
+    handleCloseModal();
+
     // Récupère les datas de la personne connectée
     const storedData = localStorage.getItem("users");
     if (storedData === null) {
@@ -98,7 +106,7 @@ function Panier() {
         <div className="flex justify-between mb-2 text-sm">
           <span>Code promo</span>
           <span className="font-mono bg-white px-2 py-1 rounded border border-gray-300">
-            WILD20
+            YAVUZ20
           </span>
         </div>
         <hr className="my-4" />
@@ -117,11 +125,29 @@ function Panier() {
         <button
           type="button"
           className="bg-[#CE9170] hover:bg-[#b87c5d] text-white w-full py-3 rounded-md transition"
-          onClick={payCart}
+          onClick={handleOpenModal}
         >
-          Paiement
+          Procéder au paiement
         </button>
       </div>
+
+      {/* Modale de paiement */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 bg-opacity-50">
+          <div className="bg-white p-6 rounded-2xl relative w-full max-w-md">
+            <button
+              type="button"
+              onClick={handleCloseModal}
+              className="absolute top-2 right-2 text-primary hover:text-secondary text-2xl"
+            >
+              &times;
+            </button>
+
+            {/* Contenu de la modale */}
+            <Paiement payCartChild={payCart} />
+          </div>
+        </div>
+      )}
 
       {/* Mon panier */}
       <div className="order-2 lg:order-1 flex-1">
