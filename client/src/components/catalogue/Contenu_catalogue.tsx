@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 interface itemsContenu {
   id: number;
@@ -104,7 +104,6 @@ function Contenu({ item }: ContenuProps) {
           Ajouter au panier
         </button>
       </section>
-      <ToastContainer position="top-right" autoClose={3000} />
     </section>
   );
 }
