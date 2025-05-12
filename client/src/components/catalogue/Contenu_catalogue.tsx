@@ -93,11 +93,11 @@ function Contenu({ item }: ContenuProps) {
       <p className="pb-3">{item.description}</p>
       <aside className="pb-3 font-bold">{item.prix} €</aside>
       <section className="flex flex-row justify-between mt-auto">
-        <button type="button" onClick={handleClick}>
+        <button className="cursor-pointer" type="button" onClick={handleClick}>
           {!isFavorite ? "🖤" : "❤️"}
         </button>
         <button
-          className="bg-[#CE9170] rounded-4xl p-2 pr-4 pl-4 font-bold transition-transform transform-gpu active:focus:outline-2 focus:outline-offset-2 focus:outline-[#ce9170] active:bg-[#eaded5]"
+          className="bg-[#CE9170] rounded-4xl p-2 pr-4 pl-4 font-bold transition-transform transform-gpu active:focus:outline-2 focus:outline-offset-2 focus:outline-[#ce9170] active:bg-[#eaded5] cursor-pointer"
           type="button"
           onClick={panier}
         >
