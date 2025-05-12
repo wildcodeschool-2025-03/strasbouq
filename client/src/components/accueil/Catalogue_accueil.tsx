@@ -53,7 +53,7 @@ function Catalogue_accueil() {
   return (
     <section>
       {/* Titre */}
-      <div className="flex justify-center text-secondary pt-7 pb-10">
+      <div className="flex justify-center text-secondary pt-10 pb-10">
         <h1 className="font-bold">
           Réservez toutes vos fleurs, depuis chez vous.
         </h1>
@@ -62,7 +62,7 @@ function Catalogue_accueil() {
       <section className="flex items-center justify-center gap-4 my-10">
         {/* Flèche gauche */}
         <button type="button" onClick={setNextL} className="text-4xl">
-          <i className="bi bi-caret-left" />
+          <i className="bi bi-caret-left cursor-pointer" />
         </button>
 
         {/* Cartes */}
@@ -76,7 +76,7 @@ function Catalogue_accueil() {
 
         {/* Flèche droite */}
         <button type="button" onClick={setNextR} className="text-4xl">
-          <i className="bi bi-caret-right" />
+          <i className="bi bi-caret-right cursor-pointer" />
         </button>
       </section>
 
@@ -85,7 +85,7 @@ function Catalogue_accueil() {
         <Link to="./Catalogue">
           <button
             type="button"
-            className="bg-[#CE9170] px-4 py-2 rounded-full text-black font-bold"
+            className="bg-[#CE9170] px-4 py-2 rounded-full text-black font-bold cursor-pointer"
           >
             Retrouvez notre
             <br />
