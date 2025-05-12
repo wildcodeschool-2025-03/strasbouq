@@ -95,7 +95,7 @@ function Contenu_administration({
 
   return (
     <>
-      <section className="flex-col justify-items-left bg-[#EADED5] rounded-md relative px-5 pt-70 pb-10 w-[300px] mx-auto overflow-visible">
+      <section className="flex-col justify-items-left bg-[#EADED5] rounded-md relative px-5 pt-60 pb-10 w-[90%] mx-auto overflow-visible mt-12">
         <article>
           <img
             className="absolute top-[-50px] left-[0px]"
@@ -104,12 +104,20 @@ function Contenu_administration({
           />
           <h3 className="font-bold pb-3">{article.flower.nom}</h3>
           <p className="pb-3">{article.flower.description}</p>
-          <p>Quantité commandée : {article.quantity}</p>
+          <p className="">Quantité commandée : {article.quantity}</p>
           <aside className="pb-3 font-bold">{article.flower.prix} €</aside>
-          <button type="button" onClick={acceptBooking}>
+          <button
+            className="font-bold text-green-500"
+            type="button"
+            onClick={acceptBooking}
+          >
             Valider réservation
           </button>
-          <button type="button" onClick={refusedBooking}>
+          <button
+            className="font-bold text-red-500"
+            type="button"
+            onClick={refusedBooking}
+          >
             Refuser réservation
           </button>
         </article>

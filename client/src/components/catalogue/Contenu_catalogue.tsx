@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 interface itemsContenu {
   id: number;
@@ -33,7 +34,7 @@ function Contenu({ item }: ContenuProps) {
     // Récupère les datas de la personne connectée
     const storedData = localStorage.getItem("users");
     if (storedData === null) {
-      alert("Aucun compte existant");
+      toast.error("Aucun compte existant");
       return;
     }
 
@@ -41,14 +42,14 @@ function Contenu({ item }: ContenuProps) {
 
     const userStoredData = sessionStorage.getItem("currentUser");
     if (userStoredData === null) {
-      alert("veuillez vous connecter");
+      toast.error("veuillez vous connecter");
       return;
     }
     const userConnected = JSON.parse(userStoredData);
     const user = users.find((u: Utilisateur) => u.mail === userConnected.mail);
 
     if (!user) {
-      alert("Utilisateur non trouvé");
+      toast.error("Utilisateur non trouvé");
       return;
     }
 
@@ -64,7 +65,7 @@ function Contenu({ item }: ContenuProps) {
     // Incrémente juste la quantité si c'est le cas
     if (article) {
       article.quantity += 1;
-      alert(
+      toast.success(
         `Quantité mise à jour : ${article.quantity} exemplaire(s) de "${item.nom}" dans le panier.`,
       );
     }
@@ -72,7 +73,7 @@ function Contenu({ item }: ContenuProps) {
     // Si l'article n'existe pas, ou si le panier lui-même n'existe pas
     else {
       user.panier.push({ flower: item, quantity: 1 });
-      alert(
+      toast.success(
         `Votre premier exemplaire de "${item.nom}" a été ajouté au panier !`,
       );
     }
@@ -82,27 +83,28 @@ function Contenu({ item }: ContenuProps) {
   };
 
   return (
-    <section className="flex-col justify-items-left bg-[#EADED5] rounded-md relative px-5 pt-70 pb-10 w-[300px] mx-auto overflow-visible">
+    <section className="flex flex-col justify-between bg-[#EADED5] w-[300px] lg:w-auto min-h-140 rounded-md relative px-5 pt-70 pb-10 mx-auto overflow-visible">
       <img
-        className="absolute top-[-50px] left-[0px]"
+        className="absolute top-[-50px] left-[0px] w-full h-auto z-0 rounded-lg transition-all duration-300 hover:scale-110"
         src={item.image_url}
         alt={item.nom}
       />
       <h3 className="font-bold pb-3">{item.nom}</h3>
       <p className="pb-3">{item.description}</p>
       <aside className="pb-3 font-bold">{item.prix} €</aside>
-      <section className="flex flex-row justify-between">
+      <section className="flex flex-row justify-between mt-auto">
         <button type="button" onClick={handleClick}>
           {!isFavorite ? "🖤" : "❤️"}
         </button>
         <button
-          className="bg-[#CE9170] rounded-4xl p-2 pr-4 pl-4 font-bold"
+          className="bg-[#CE9170] rounded-4xl p-2 pr-4 pl-4 font-bold transition-transform transform-gpu active:focus:outline-2 focus:outline-offset-2 focus:outline-[#ce9170] active:bg-[#eaded5]"
           type="button"
           onClick={panier}
         >
           Ajouter au panier
         </button>
       </section>
+      <ToastContainer position="top-right" autoClose={3000} />
     </section>
   );
 }

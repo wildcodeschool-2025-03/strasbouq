@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { Link } from "react-router";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -46,6 +45,26 @@ function Header() {
 
   return (
     <>
+      <motion.div
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="w-full bg-[#CE9170] text-white text-center py-2 text-base font-semibold"
+      >
+        Sur tous les bouquets - Code promo :{" "}
+        <motion.span
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{
+            repeat: Number.POSITIVE_INFINITY,
+            duration: 1.5,
+            ease: "easeInOut",
+          }}
+          className="inline-block text-white"
+        >
+          wild20
+        </motion.span>
+      </motion.div>
+
       <section className="relative">
         <header className="grid grid-cols-[auto_1fr_auto] items-center px-4 py-2 bg-white-100 z-10">
           <article className="justify-self-start">
@@ -56,7 +75,6 @@ function Header() {
             >
               <i className="bi bi-list text-3xl" />
             </button>
-
             <nav className="pl-10 hidden md:block">
               <ul className="flex gap-16">
                 <li>
@@ -102,12 +120,10 @@ function Header() {
           </article>
         </header>
       </section>
-
-      <div className="text-container">
-        <hr className="my-6 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-75 dark:via-neutral-800" />
+      <div className="text-contain">
+        <hr className="my-8 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-75 dark:via-neutral-800" />
       </div>
 
-      {/* Overlay pour clic extérieur */}
       {isMenuOpen && (
         <div
           role="button"
@@ -123,7 +139,6 @@ function Header() {
         />
       )}
 
-      {/* Menu déroulant mobile */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.nav
@@ -154,21 +169,36 @@ function Header() {
         )}
       </AnimatePresence>
 
-      {/* MODALE COMPTE */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 bg-opacity-50">
-          <div className="bg-white p-6 rounded-2xl relative w-full max-w-md">
-            <button
-              type="button"
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-2 right-2 text-primary hover:text-secondary text-2xl"
+      {/* MODALE COMPTE animée */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={handleCloseModal}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white p-6 rounded-2xl relative w-full max-w-md"
+              onClick={(e) => e.stopPropagation()} // évite que le clic sur la boîte ferme la modale
             >
-              &times;
-            </button>
-            <Account_management onClose={handleCloseModal} />
-          </div>
-        </div>
-      )}
+              <button
+                type="button"
+                onClick={handleCloseModal}
+                className="absolute top-2 right-2 text-primary hover:text-secondary text-2xl"
+              >
+                &times;
+              </button>
+              <Account_management onClose={handleCloseModal} />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <ToastContainer position="top-left" autoClose={1500} />
     </>

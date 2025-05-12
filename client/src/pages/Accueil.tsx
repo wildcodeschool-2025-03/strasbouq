@@ -1,6 +1,6 @@
 import { Handshake, Heart, Leaf, Lightbulb, ShieldCheck } from "lucide-react";
-import ValeursAccueil from "../components/accueil/Valeur_accueil";
 import Catalogue_accueil from "../components/accueil/Catalogue_accueil";
+import ValeursAccueil from "../components/accueil/Valeur_accueil";
 
 function Accueil() {
   const tableauValeurs = [
@@ -32,7 +32,7 @@ function Accueil() {
   ];
 
   return (
-    <>
+    <section className="bg-white">
       <Catalogue_accueil />
 
       <section className="bg-primary">
@@ -68,7 +68,9 @@ function Accueil() {
             </p>
           </div>
         </section>
-
+        <section>
+          <img src="./public/assets/fleuriste.jpeg" alt="fleuriste" />
+        </section>
         <section className="bg-white">
           <h2 className="text-secondary text-center text-2xl font-bold pt-7">
             Nos valeurs
@@ -86,7 +88,7 @@ function Accueil() {
           </div>
         </section>
       </section>
-    </>
+    </section>
   );
 }
 
