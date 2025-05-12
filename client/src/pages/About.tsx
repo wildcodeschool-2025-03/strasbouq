@@ -30,15 +30,18 @@ function About() {
   ];
 
   return (
-    <section className="bg-white">
+    <section className="bg-white pt-[0.1rem]">
       <section className="bg-primary mt-12 ">
-        <h2 className="text-center text-secondary text-2xl font-extrabold pt-7 w-2/3 mx-auto">
+        <h2 className="max-lg:hidden text-center text-secondary text-2xl font-extrabold pt-10 pb-5 w-2/3 mx-auto">
+          Le Jardin Alsacien, une histoire florissante au cœur de la tradition
+        </h2>
+        <h2 className="lg:hidden text-center text-secondary text-2xl font-extrabold pt-10 pb-3 w-full mx-auto">
           Le Jardin Alsacien
         </h2>
-        <h3 className=" text-xl pt-2 text-center font-semibold w-2/3 mx-auto">
-          une histoire florissante au cœur de la tradition
-        </h3>
-        <p className="text-center mx-auto w-[79%] pt-5 pb-6 ">
+        {/* <h3 className=" text-xl pt-2 text-center font-semibold w-2/3 mx-auto">
+          Une histoire florissante au cœur de la tradition
+        </h3> */}
+        <p className="text-justify mx-auto w-[79%] pt-5 pb-14 ">
           Fondé en 1998 près de Strasbourg, Le Jardin Alsacien est une
           entreprise familiale spécialisée dans la vente de bouquets artisanaux.
           Inspirée par les traditions florales alsaciennes, elle propose des
@@ -54,9 +57,11 @@ function About() {
       </section>
 
       <section>
-        <h2 className=" text-2xl ml-8 font-semibold pt-8">Nos valeurs</h2>
+        <h2 className=" text-2xl font-semibold pt-8 mb-6 mt-6 text-center text-secondary">
+          Nos valeurs
+        </h2>
       </section>
-      <section className="mb-8">
+      <section className="pb-10">
         {tableauValeurs.map((valeur) => (
           <Valeurs
             key={valeur.title}

@@ -116,7 +116,7 @@ function Header() {
           }}
           className="inline-block text-white"
         >
-          wild20
+          WILD20
         </motion.span>
       </motion.div>
 

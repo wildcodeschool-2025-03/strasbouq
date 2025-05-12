@@ -3,7 +3,7 @@ import { Link } from "react-router";
 function Footer() {
   return (
     <section className="bg-secondary pb-5">
-      <section className="flex flex-row justify-center gap-5 p-5">
+      <section className="flex flex-row justify-center gap-5 p-5 pt-10">
         <p>
           <a href="https://www.facebook.com/">
             <i className="text-4xl bi bi-facebook" />

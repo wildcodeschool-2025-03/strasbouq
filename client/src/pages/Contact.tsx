@@ -39,7 +39,7 @@ function Contact() {
   return (
     <section className="bg-white py-10 px-5">
       <motion.h1
-        className="text-2xl font-bold text-secondary text-center mb-8"
+        className="text-2xl font-bold text-secondary text-center mb-12"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.5 }}
@@ -47,17 +47,17 @@ function Contact() {
         Contact
       </motion.h1>
 
-      <section className="md:flex items-center flex-row-reverse justify-around gap-8">
+      <section className="md:flex flex-row-reverse justify-around gap-8">
         {/* Infos de contact */}
         <motion.section
-          className="space-y-7 p-5 m-5 md:w-1/2 text-lg text-gray-700"
+          className="space-y-7 p-5 pt-0 m-5 mt-0 md:w-1/2 text-black"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <p className="flex items-center hover:scale-105 transition-transform duration-300">
             <i className="text-3xl mr-6 bi bi-telephone-fill" />
-            09 748 885
+            0900 748 885
           </p>
           <p className="flex items-center hover:scale-105 transition-transform duration-300">
             <i className="text-3xl mr-6 bi bi-geo-fill" />7 Rue des Tonneliers,
@@ -71,57 +71,70 @@ function Contact() {
             <a href="https://www.instagram.com/">
               <i className="text-3xl mr-6 bi bi-instagram" />
             </a>
-            @LeJardienAlsacien
+            @LeJardinAlsacien
           </p>
         </motion.section>
 
         {/* Formulaire */}
         <motion.section
-          className="bg-primary p-8 rounded-lg shadow-lg md:w-1/2"
+          className="bg-primary p-8 pb-6 rounded-lg shadow-lg md:w-1/2"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <form ref={form} onSubmit={sendEmail} className="flex flex-col gap-2">
-            <label htmlFor="name">Nom :</label>
+            <label className="font-bold" htmlFor="name">
+              Nom :
+            </label>
             <input
               type="text"
               id="name"
               name="name"
               className="w-full bg-[#f8f8f8] border-2 border-secondary rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-secondary transition"
+              placeholder="Votre nom"
             />
-            <label htmlFor="email">Email :</label>
+            <label className="font-bold" htmlFor="email">
+              Email :
+            </label>
             <input
               type="email"
               id="email"
               name="email"
               className="bg-[#f8f8f8] border-2 border-secondary rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-secondary transition"
+              placeholder="Votre email"
             />
-            <label htmlFor="telephone">Téléphone :</label>
+            <label className="font-bold" htmlFor="telephone">
+              Téléphone :
+            </label>
             <input
               type="text"
               id="telephone"
               name="telephone"
+              placeholder="Votre téléphone"
               className="bg-[#f8f8f8] border-2 border-secondary rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-secondary transition"
             />
-            <label htmlFor="objet">Objet :</label>
+            <label  className="font-bold" htmlFor="objet">
+              Objet :
+            </label>
             <input
               type="text"
               id="objet"
               name="objet"
+              placeholder="Objet du message"
               className="bg-[#f8f8f8] border-2 border-secondary rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-secondary transition"
             />
-            <label htmlFor="message">Message :</label>
+            <label className="font-bold" htmlFor="message">Message :</label>
             <textarea
               id="message"
               name="message"
               rows={7}
               className="bg-[#f8f8f8] border-2 border-secondary rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-secondary transition"
+              placeholder="Votre message"
             />
             <button
               type="submit"
               disabled={loading}
-              className="bg-secondary text-white p-3 rounded-md font-semibold hover:scale-105 transition-transform duration-300 disabled:opacity-50"
+              className="bg-secondary text-white p-3 mt-4 rounded-md font-semibold hover:scale-105 transition-transform duration-300 disabled:opacity-50"
             >
               {loading ? "Envoi en cours..." : "Envoyer"}
             </button>

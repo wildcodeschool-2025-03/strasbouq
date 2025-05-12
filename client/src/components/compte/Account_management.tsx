@@ -51,14 +51,14 @@ function Account_management({ onClose }: { onClose: () => void }) {
     // Si aucun utilisateur n'existe encore, crée un tableau contenant l'objet utilisateur
     if (storedData === null) {
       localStorage.setItem("users", JSON.stringify([account]));
-      toast.success(`${mailInput}, votre compte a bien été crée !`);
+      toast.success(`${mailInput}, Votre compte a bien été créé avec succès !`);
     }
 
     // Si un ou plusieurs compte existent déja...
     else {
       const users = JSON.parse(storedData);
 
-      // ...Vérifie que l'adresse mail n'est pas déja renseignée --- CHECKER LA CASSE AUSSI
+      // ...Vérifie que l'adresse mail n'est pas déja renseignée 
       let isAlreadyExistant = false;
 
       for (const user of users) {
@@ -67,7 +67,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
         }
       }
 
-      // Si oui, on annule la création de compte ---- MESSAGE ERREUR A FAIRE
+      // Si oui, on annule la création de compte
       if (isAlreadyExistant) {
         toast.error("Ce mail est déja utilisé !");
         return;
@@ -76,7 +76,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
       // Si non, on crée le nouveau compte
       users.push(account);
       localStorage.setItem("users", JSON.stringify(users));
-      toast.success(`${mailInput}, votre compte a bien été crée !`);
+      toast.success(`${mailInput}, Votre compte a bien été crée avec succès !`);
     }
 
     // Nettoie les inputs une fois le bouton cliqué
@@ -117,6 +117,8 @@ function Account_management({ onClose }: { onClose: () => void }) {
       if (user.mail === mailInput && user.password === passwordInput) {
         sessionStorage.setItem("currentUser", JSON.stringify(user));
 
+        onClose();
+
         // Evenement changement nombre d'items dans le panier
         let numberOfTotalItems = 0;
 
@@ -130,7 +132,6 @@ function Account_management({ onClose }: { onClose: () => void }) {
         window.dispatchEvent(event);
 
         navigate(0);
-        onClose();
         return;
       }
     }
@@ -173,7 +174,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
         <button
           type="button"
           onClick={createNewAccount}
-          className="bg-secondary text-black w-40 rounded-full mr-8 cursor-pointer"
+          className="bg-secondary text-white w-40 rounded-full mr-8 cursor-pointer"
         >
           Créer compte
         </button>
@@ -181,7 +182,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
         <button
           type="button"
           onClick={loginToAccount}
-          className="bg-secondary text-black w-40 rounded-full cursor-pointer"
+          className="bg-secondary text-white w-40 rounded-full cursor-pointer"
         >
           Se connecter
         </button>

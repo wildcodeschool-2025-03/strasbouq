@@ -22,8 +22,8 @@ function Legales() {
           {
             title: "Éditeur du site",
             content: (
-              <>
-                <strong>Responsable :</strong> Les Jardin Alsacien
+              <section className="mb-10">
+                <strong>Responsable :</strong> Le Jardin Alsacien
                 <br />
                 <strong>Forme juridique :</strong> SARL
                 <br />
@@ -39,7 +39,7 @@ function Legales() {
                 <strong>RCS :</strong> Strasbourg
                 <br />
                 <strong>TVA :</strong> non applicable
-              </>
+              </section>
             ),
           },
           {
