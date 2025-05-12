@@ -1,4 +1,7 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
 import Paiement from "../components/compte/Paiement";
 import { getCurrentUserData } from "../components/fonctions";
 import ContenuPanier from "../components/panier/Contenue_panier";
@@ -26,6 +29,7 @@ interface Utilisateur {
 function Panier() {
   const [panier, setPanier] = useState<Article[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const user = getCurrentUserData();
@@ -50,7 +54,7 @@ function Panier() {
     // Récupère les datas de la personne connectée
     const storedData = localStorage.getItem("users");
     if (storedData === null) {
-      alert("Aucun compte existant");
+      toast.error("Aucun compte existant");
       return;
     }
 
@@ -58,20 +62,20 @@ function Panier() {
 
     const userStoredData = sessionStorage.getItem("currentUser");
     if (userStoredData === null) {
-      alert("veuillez vous connecter");
+      toast.error("Veuillez vous connecter");
       return;
     }
     const userConnected = JSON.parse(userStoredData);
     const user = users.find((u: Utilisateur) => u.mail === userConnected.mail);
 
     if (!user) {
-      alert("Utilisateur non trouvé");
+      toast.error("Utilisateur non trouvé");
       return;
     }
 
     // Si panier vide
     if (!user || !user.panier || user.panier.length === 0) {
-      alert("Votre panier est vide, rien à payer !");
+      toast.info("Votre panier est vide, rien à payer !");
       return;
     }
 
@@ -106,10 +110,18 @@ function Panier() {
       detail: numberOfTotalItems,
     });
     window.dispatchEvent(event);
+    
+    // Confirmation visuelle
+    toast.success("Votre commande a été enregistrée 🎉");
+
+    // Redirection vers /merci
+    setTimeout(() => {
+      navigate("/merci");
+    }, 1000);
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col lg:flex-row gap-12">
+    <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col lg:flex-row gap-12 min-h-lvh">
       {/* Récapitulatif */}
       <div className="order-1 lg:order-2 w-full lg:w-[350px] bg-[#F5ECE6] p-6 rounded-xl shadow-md h-fit">
         <h3 className="text-xl font-semibold mb-4 text-[#B67152]">
@@ -144,22 +156,37 @@ function Panier() {
       </div>
 
       {/* Modale de paiement */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 bg-opacity-50">
-          <div className="bg-white p-6 rounded-2xl relative w-full max-w-md">
-            <button
-              type="button"
-              onClick={handleCloseModal}
-              className="absolute top-2 right-2 text-primary hover:text-secondary text-2xl"
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={handleCloseModal}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white p-6 rounded-2xl relative w-full max-w-md"
+              onClick={(e) => e.stopPropagation()} // évite que le clic sur la boîte ferme la modale
             >
-              &times;
-            </button>
+              <button
+                type="button"
+                onClick={handleCloseModal}
+                className="absolute top-2 right-2 text-primary hover:text-secondary text-2xl"
+              >
+                &times;
+              </button>
 
-            {/* Contenu de la modale */}
-            <Paiement payCartChild={payCart} />
-          </div>
-        </div>
-      )}
+              {/* Contenu de la modale */}
+              <Paiement payCartChild={payCart} />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Mon panier */}
       <div className="order-2 lg:order-1 flex-1">
@@ -180,6 +207,7 @@ function Panier() {
           ))
         )}
       </div>
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }

@@ -173,7 +173,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
         <button
           type="button"
           onClick={createNewAccount}
-          className="bg-secondary text-black w-40 rounded-full mr-8"
+          className="bg-secondary text-black w-40 rounded-full mr-8 cursor-pointer"
         >
           Créer compte
         </button>
@@ -181,7 +181,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
         <button
           type="button"
           onClick={loginToAccount}
-          className="bg-secondary text-black w-40 rounded-full"
+          className="bg-secondary text-black w-40 rounded-full cursor-pointer"
         >
           Se connecter
         </button>
