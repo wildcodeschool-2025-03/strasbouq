@@ -47,6 +47,18 @@ function ContenuPanier({ item, updatePanier, panier }: ContenuPanierProps) {
         p.flower.id === item.flower.id ? { ...p, quantity: p.quantity + 1 } : p,
       );
       updatePanier(newPanier);
+
+      // Evenement changement nombre d'items dans le panier
+      let numberOfTotalItems = 0;
+
+      for (const article of user.panier) {
+        numberOfTotalItems += article.quantity;
+      }
+
+      const event = new CustomEvent("panierUpdated", {
+        detail: numberOfTotalItems,
+      });
+      window.dispatchEvent(event);
     }
   };
 
@@ -81,6 +93,18 @@ function ContenuPanier({ item, updatePanier, panier }: ContenuPanierProps) {
         .filter((p) => p.quantity > 0);
 
       updatePanier(newPanier);
+
+      // Evenement changement nombre d'items dans le panier
+      let numberOfTotalItems = 0;
+
+      for (const article of user.panier) {
+        numberOfTotalItems += article.quantity;
+      }
+
+      const event = new CustomEvent("panierUpdated", {
+        detail: numberOfTotalItems,
+      });
+      window.dispatchEvent(event);
     }
   };
 
