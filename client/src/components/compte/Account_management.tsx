@@ -116,14 +116,26 @@ function Account_management({ onClose }: { onClose: () => void }) {
 
       if (user.mail === mailInput && user.password === passwordInput) {
         sessionStorage.setItem("currentUser", JSON.stringify(user));
+
+        // Evenement changement nombre d'items dans le panier
+        let numberOfTotalItems = 0;
+
+        for (const article of user.panier) {
+          numberOfTotalItems += article.quantity;
+        }
+
+        const event = new CustomEvent("panierUpdated", {
+          detail: numberOfTotalItems,
+        });
+        window.dispatchEvent(event);
+
         navigate(0);
         onClose();
-
         return;
       }
     }
 
-    alert("Aucun compte trouvé - vérifiez votre login ou mot de passe");
+    toast.error("Aucun compte trouvé - vérifiez votre login ou mot de passe");
   };
 
   // -----------------------------------Fonction déconnexion---------------------------------------------------------

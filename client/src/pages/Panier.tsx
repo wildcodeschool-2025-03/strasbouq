@@ -94,6 +94,18 @@ function Panier() {
 
     // Enregistrer la réservation
     localStorage.setItem("users", JSON.stringify(users));
+
+    // Evenement changement nombre d'items dans le panier
+    let numberOfTotalItems = 0;
+
+    for (const article of user.panier) {
+      numberOfTotalItems += article.quantity;
+    }
+
+    const event = new CustomEvent("panierUpdated", {
+      detail: numberOfTotalItems,
+    });
+    window.dispatchEvent(event);
   };
 
   return (

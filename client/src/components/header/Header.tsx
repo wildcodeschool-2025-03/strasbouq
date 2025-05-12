@@ -1,15 +1,70 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect, useState } from "react";
 
 import Account_management from "../compte/Account_management";
+
+interface itemsContenu {
+  id: number;
+  nom: string;
+  description: string;
+  prix: number;
+  image_url: string;
+}
+
+interface Article {
+  flower: itemsContenu;
+  quantity: number;
+}
+
+interface Utilisateur {
+  mail: string;
+  panier: Article[];
+}
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [panierQuantity, setPanierQuantity] = useState(0);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Affiche le nombre d'items dans le panier lorsqu'on se connecte pour la première fois
+
+    const listUser = localStorage.getItem("users");
+    if (listUser === null) return;
+
+    const users: Utilisateur[] = JSON.parse(listUser);
+
+    const userConnected = sessionStorage.getItem("currentUser");
+    if (userConnected === null) return;
+
+    const connected = JSON.parse(userConnected);
+
+    const user = users.find((u) => u.mail === connected.mail);
+    if (!user) return;
+
+    let numberOfTotalItems = 0;
+
+    for (const article of user.panier) {
+      numberOfTotalItems += article.quantity;
+    }
+
+    setPanierQuantity(numberOfTotalItems);
+
+    const handlePanierUpdate = (e: Event) => {
+      const customEvent = e as CustomEvent<number>;
+      setPanierQuantity(customEvent.detail);
+    };
+
+    window.addEventListener("panierUpdated", handlePanierUpdate);
+
+    return () => {
+      window.removeEventListener("panierUpdated", handlePanierUpdate);
+    };
+  }, []);
 
   const handleCloseModal = () => setIsModalOpen(false);
 
@@ -114,9 +169,10 @@ function Header() {
               )}
             </button>
 
-            <button type="button" onClick={handleCartClick} className="md:mr-4">
+            <button type="button" onClick={handleCartClick}>
               <i className="bi bi-cart text-2xl" />
             </button>
+            <span className="hidden md:block">{panierQuantity}</span>
           </article>
         </header>
       </section>

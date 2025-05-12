@@ -62,6 +62,12 @@ function Accordeon() {
     }
     sessionStorage.removeItem("currentUser");
     navigate("/");
+
+    // Evenement changement nombre d'items dans le panier
+    const event = new CustomEvent("panierUpdated", {
+      detail: 0,
+    });
+    window.dispatchEvent(event);
   };
 
   return (
