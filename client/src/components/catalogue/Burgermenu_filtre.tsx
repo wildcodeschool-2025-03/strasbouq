@@ -221,7 +221,7 @@ const BurgerMenufiltre = ({
   ];
 
   return (
-    <div className="relative">
+    <div className="relative" ref={menuRef}>
       <button
         type="button"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -233,7 +233,7 @@ const BurgerMenufiltre = ({
       </button>
 
       {isMenuOpen && (
-        <div ref={menuRef}>
+        <div>
           <aside className="absolute top-12 left-0 z-50 w-72 p-4 bg-white rounded-xl shadow-lg">
             {sections.map(({ title, content }) => (
               <div key={title} className="py-2 w-full">
