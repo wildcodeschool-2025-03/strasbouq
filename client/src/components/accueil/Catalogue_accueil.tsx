@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import Contenu from "../catalogue/Contenu_catalogue";
@@ -20,6 +21,7 @@ function Catalogue_accueil() {
   const [cardsPerPage, setCardsPerPage] = useState(
     window.innerWidth >= 768 ? 2 : 1,
   );
+  const [direction, setDirection] = useState<"left" | "right">("right");
 
   useEffect(() => {
     const handleResize = () => {
@@ -43,10 +45,12 @@ function Catalogue_accueil() {
   const totalPages = Math.ceil(items.length / cardsPerPage);
 
   function setNextR() {
+    setDirection("right");
     setCarousel((prev) => (prev >= totalPages ? 1 : prev + 1));
   }
 
   function setNextL() {
+    setDirection("left");
     setCarousel((prev) => (prev === 1 ? totalPages : prev - 1));
   }
 
@@ -68,9 +72,15 @@ function Catalogue_accueil() {
         {/* Cartes */}
         <div className="flex gap-6">
           {items.slice(startIndex, startIndex + cardsPerPage).map((item) => (
-            <div key={item.id} className="w-full max-w-[300px]">
+            <motion.div
+              key={`${carousel}-${item.id}`}
+              className="w-full max-w-[300px]"
+              initial={{ opacity: 0, x: direction === "right" ? 50 : -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
               <Contenu item={item} />
-            </div>
+            </motion.div>
           ))}
         </div>
 
