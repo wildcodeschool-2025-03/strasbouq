@@ -66,28 +66,28 @@ function Header() {
       </motion.div>
 
       <section className="relative">
-        <header className="grid grid-cols-[auto_1fr_auto] items-center px-4 py-2 bg-white-100 z-10">
+        <header className="grid grid-cols-[auto_1fr_auto] items-center px-4 py-2 bg-white z-10">
           <article className="justify-self-start">
             <button
               type="button"
-              className="pl-2 block md:hidden"
+              className="pl-2 block md:hidden hover:scale-110"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <i className="bi bi-list text-3xl" />
             </button>
             <nav className="pl-10 hidden md:block">
               <ul className="flex gap-16">
-                <li>
+                <li className="hover:scale-110">
                   <Link to="/">Accueil</Link>
                 </li>
-                <li>
+                <li className="hover:scale-110">
                   <Link to="/Catalogue">Catalogue</Link>
                 </li>
               </ul>
             </nav>
           </article>
 
-          <article className="justify-self-center">
+          <article className="justify-self-center mb-8 mt-4">
             <Link to="/">
               <img
                 src="./assets/Logo-jardin-alsacien.png"
@@ -98,7 +98,7 @@ function Header() {
           </article>
 
           <article className="flex flex-col md:flex-row justify-self-end items-center md:pr-10">
-            <div className="hidden md:block md:mr-16">
+            <div className="hidden md:block md:mr-16 hover:scale-110">
               <Link to="/About">À propos</Link>
             </div>
 
@@ -107,21 +107,25 @@ function Header() {
               onClick={handleAccountClick}
               className="md:mr-4"
             >
-              {sessionStorage.getItem("currentUser") ? (
-                <i className="bi bi-person-fill-check text-2xl" />
-              ) : (
-                <i className="bi bi-person text-2xl" />
-              )}
+              <span className="inline-block transition-transform hover:scale-110">
+                {sessionStorage.getItem("currentUser") ? (
+                  <i className="bi bi-person-fill-check text-2xl cursor-pointer" />
+                ) : (
+                  <i className="bi bi-person text-2xl cursor-pointer" />
+                )}
+              </span>
             </button>
 
             <button type="button" onClick={handleCartClick} className="md:mr-4">
-              <i className="bi bi-cart text-2xl" />
+              <span className="inline-block transition-transform hover:scale-110">
+                <i className="bi bi-cart text-2xl cursor-pointer" />
+              </span>
             </button>
           </article>
         </header>
       </section>
       <div className="text-contain">
-        <hr className="my-8 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-75 dark:via-neutral-800" />
+        <hr className="h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-75 dark:via-neutral-800" />
       </div>
 
       {isMenuOpen && (
