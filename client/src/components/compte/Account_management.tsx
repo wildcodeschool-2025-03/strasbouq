@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Account_management({ onClose }: { onClose: () => void }) {
@@ -185,8 +185,6 @@ function Account_management({ onClose }: { onClose: () => void }) {
         >
           Se connecter
         </button>
-
-        <ToastContainer position="top-right" autoClose={3000} />
       </section>
     </>
   );

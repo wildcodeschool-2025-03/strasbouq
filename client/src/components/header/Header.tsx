@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Link, useNavigate } from "react-router";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 
@@ -258,8 +258,6 @@ function Header() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      <ToastContainer position="top-left" autoClose={1500} />
     </>
   );
 }
