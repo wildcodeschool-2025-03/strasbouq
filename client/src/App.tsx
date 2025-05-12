@@ -2,6 +2,7 @@ import { Outlet } from "react-router";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import { ThemeProvider, setDarkMode } from "./contextes/ThemeContext";
+import { ToastContainer } from "react-toastify";
 import "./App.css";
 
 function AppContent() {
@@ -14,6 +15,7 @@ function AppContent() {
         <Outlet />
       </main>
       <Footer />
+      <ToastContainer position="top-right" autoClose={3000} />
     </section>
   );
 }
