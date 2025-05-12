@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
 import Paiement from "../components/compte/Paiement";
 import { getCurrentUserData } from "../components/fonctions";
 import ContenuPanier from "../components/panier/Contenue_panier";
@@ -26,6 +28,7 @@ interface Utilisateur {
 function Panier() {
   const [panier, setPanier] = useState<Article[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const user = getCurrentUserData();
@@ -50,7 +53,7 @@ function Panier() {
     // Récupère les datas de la personne connectée
     const storedData = localStorage.getItem("users");
     if (storedData === null) {
-      alert("Aucun compte existant");
+      toast.error("Aucun compte existant");
       return;
     }
 
@@ -58,20 +61,20 @@ function Panier() {
 
     const userStoredData = sessionStorage.getItem("currentUser");
     if (userStoredData === null) {
-      alert("veuillez vous connecter");
+      toast.error("Veuillez vous connecter");
       return;
     }
     const userConnected = JSON.parse(userStoredData);
     const user = users.find((u: Utilisateur) => u.mail === userConnected.mail);
 
     if (!user) {
-      alert("Utilisateur non trouvé");
+      toast.error("Utilisateur non trouvé");
       return;
     }
 
     // Si panier vide
     if (!user || !user.panier || user.panier.length === 0) {
-      alert("Votre panier est vide, rien à payer !");
+      toast.info("Votre panier est vide, rien à payer !");
       return;
     }
 
@@ -94,6 +97,14 @@ function Panier() {
 
     // Enregistrer la réservation
     localStorage.setItem("users", JSON.stringify(users));
+
+    // Confirmation visuelle
+    toast.success("Votre commande a été enregistrée 🎉");
+
+    // Redirection vers /merci
+    setTimeout(() => {
+      navigate("/merci");
+    }, 1000);
   };
 
   return (
@@ -168,6 +179,7 @@ function Panier() {
           ))
         )}
       </div>
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }
