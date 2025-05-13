@@ -10,7 +10,7 @@ import {
   FaLock,
   FaTimesCircle,
 } from "react-icons/fa";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 interface FormData {
@@ -153,8 +153,6 @@ function Paiement({ payCartChild }: { payCartChild: () => void }) {
       >
         Paiement
       </motion.button>
-
-      <ToastContainer position="top-right" autoClose={3000} />
     </motion.section>
   );
 }

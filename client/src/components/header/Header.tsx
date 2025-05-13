@@ -170,12 +170,12 @@ function Header() {
                 )}
               </span>
             </button>
-            <button type="button" onClick={handleCartClick} className="md:mr-4">
+            <button type="button" onClick={handleCartClick}>
               <span className="inline-block transition-transform hover:scale-110">
                 <i className="bi bi-cart text-2xl cursor-pointer" />
               </span>
             </button>
-            <span className="hidden md:block">{panierQuantity}</span>
+            <span className="min-w-[1.4rem]">{panierQuantity}</span>
           </article>
         </header>
       </section>

@@ -34,7 +34,7 @@ function Compte() {
 
   return (
     <>
-      <section className="bg-white pt-1">
+      <section className="bg-white pt-1 pb-10 md:pb-80">
         <section className="bg-primary mt-10 md:justify-center md:flex md:flex-col md:items-center xl:justify-start xl:items-start xl:p-5">
           <h2 className="ml-5 pt-5 text-2xl font-bold">
             Bonjour {curentUser?.mail}

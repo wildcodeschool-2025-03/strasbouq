@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import Paiement from "../components/compte/Paiement";
 import { getCurrentUserData } from "../components/fonctions";
 import ContenuPanier from "../components/panier/Contenue_panier";
@@ -110,7 +110,7 @@ function Panier() {
       detail: numberOfTotalItems,
     });
     window.dispatchEvent(event);
-    
+
     // Confirmation visuelle
     toast.success("Votre commande a été enregistrée 🎉");
 
@@ -201,13 +201,12 @@ function Panier() {
                 item={item}
                 updatePanier={updatePanier}
                 panier={panier}
+                quantity={item.quantity}
               />
-              <p>x{item.quantity}</p>
             </article>
           ))
         )}
       </div>
-      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }
