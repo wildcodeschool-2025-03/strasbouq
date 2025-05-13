@@ -110,7 +110,7 @@ function Panier() {
       detail: numberOfTotalItems,
     });
     window.dispatchEvent(event);
-    
+
     // Confirmation visuelle
     toast.success("Votre commande a été enregistrée 🎉");
 

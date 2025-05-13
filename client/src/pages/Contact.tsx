@@ -113,7 +113,7 @@ function Contact() {
               placeholder="Votre téléphone"
               className="bg-[#f8f8f8] border-2 border-secondary rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-secondary transition"
             />
-            <label  className="font-bold" htmlFor="objet">
+            <label className="font-bold" htmlFor="objet">
               Objet :
             </label>
             <input
@@ -123,7 +123,9 @@ function Contact() {
               placeholder="Objet du message"
               className="bg-[#f8f8f8] border-2 border-secondary rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-secondary transition"
             />
-            <label className="font-bold" htmlFor="message">Message :</label>
+            <label className="font-bold" htmlFor="message">
+              Message :
+            </label>
             <textarea
               id="message"
               name="message"
