@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import Contenu from "../catalogue/Contenu_catalogue";
+import Contenu_accueil from "../accueil/Contenu_accueil";
 
 // Typage du bouquet
 type Bouquet = {
@@ -57,36 +57,36 @@ function Catalogue_accueil() {
   return (
     <section>
       {/* Titre */}
-      <div className="flex justify-center text-secondary pt-10 pb-10">
+      <div className="flex justify-center text-secondary text-center text-[1.4rem] md:text-2xl pt-10 pb-10">
         <h1 className="font-bold">
           Réservez toutes vos fleurs, depuis chez vous.
         </h1>
       </div>
 
-      <section className="flex items-center justify-center gap-4 my-10">
+      <section className="flex items-center justify-center gap-1 md:gap-6 my-10">
         {/* Flèche gauche */}
         <button type="button" onClick={setNextL} className="text-4xl">
-          <i className="bi bi-caret-left cursor-pointer" />
+          <i className="bi bi-chevron-left cursor-pointer" />
         </button>
 
         {/* Cartes */}
-        <div className="flex gap-6">
+        <div className="flex gap-20">
           {items.slice(startIndex, startIndex + cardsPerPage).map((item) => (
             <motion.div
               key={`${carousel}-${item.id}`}
               className="w-full max-w-[300px]"
-              initial={{ opacity: 0, x: direction === "right" ? 50 : -50 }}
+              initial={{ opacity: 0, x: direction === "right" ? 80 : -80 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
             >
-              <Contenu item={item} />
+              <Contenu_accueil item={item} />
             </motion.div>
           ))}
         </div>
 
         {/* Flèche droite */}
         <button type="button" onClick={setNextR} className="text-4xl">
-          <i className="bi bi-caret-right cursor-pointer" />
+          <i className="bi bi-chevron-right cursor-pointer" />
         </button>
       </section>
 
@@ -95,7 +95,7 @@ function Catalogue_accueil() {
         <Link to="./Catalogue">
           <button
             type="button"
-            className="bg-[#CE9170] px-4 py-2 rounded-full text-black font-bold cursor-pointer"
+            className="bg-[#CE9170] py-2 px-10 rounded-full text-white font-bold cursor-pointer"
           >
             Retrouvez notre
             <br />

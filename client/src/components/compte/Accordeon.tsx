@@ -71,10 +71,10 @@ function Accordeon() {
   };
 
   return (
-    <div className=" mt-4 w-[80%] ml-5 pb-4 md:w-[50%] xl:w-[33%] xl:pb-1">
+    <div className=" mt-4 w-[80%] ml-5 pb-4 md:w-[50%] xl:w-[40%] xl:pb-1">
       <AccordeonItem title="Mes informations">
-        <p>Mail: {currentUser?.mail}</p>
-        <p>Mot de passe: {currentUser?.password}</p>
+        <p className="pl-3">Mail: {currentUser?.mail}</p>
+        <p className="pl-3">Mot de passe: {currentUser?.password}</p>
       </AccordeonItem>
       <AccordeonItem title="Mes réservations en cours">
         {currentUser?.reservation && currentUser.reservation.length > 0 ? (
@@ -87,7 +87,7 @@ function Accordeon() {
             ))}
           </ul>
         ) : (
-          <p>Pas de réservation en cours</p>
+          <p className="pl-3">Pas de réservation en cours</p>
         )}
       </AccordeonItem>
 
@@ -102,7 +102,7 @@ function Accordeon() {
             ))}
           </ul>
         ) : (
-          <p>Pas de réservation en cours</p>
+          <p className="pl-3">Pas de réservation en cours</p>
         )}
       </AccordeonItem>
 
@@ -117,7 +117,7 @@ function Accordeon() {
             ))}
           </ul>
         ) : (
-          <p>Pas de réservation en cours</p>
+          <p className="pl-3">Pas de réservation en cours</p>
         )}
       </AccordeonItem>
 

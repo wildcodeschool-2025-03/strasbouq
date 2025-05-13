@@ -59,7 +59,7 @@ function Catalogue() {
   }, [flowerTri]);
 
   return (
-    <section className="bg-white">
+    <section className="bg-white pt-7 p-10">
       <BurgerMenuFiltre
         setColor={setColor}
         setDisponibilite={setDisponibilite}
@@ -67,7 +67,7 @@ function Catalogue() {
         setMinPrice={setMinPrice}
         setMaxPrice={setMaxPrice}
       />
-      <section className="grid md:grid-cols-2 xl:grid-cols-3 gap-15 pt-15 pb-15">
+      <section className="grid md:grid-cols-2 xl:grid-cols-3 gap-x-12 mt-15 gap-y-22">
         {items?.map((item) => (
           <Contenu item={item} key={item.id} />
         ))}

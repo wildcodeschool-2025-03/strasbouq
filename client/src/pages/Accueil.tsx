@@ -40,7 +40,7 @@ function Accueil() {
           Le Jardin Alsacien, comment ça marche ?
         </h2>
 
-        <section className="xl:flex xl:py-10 xl:justify-center gap-x-6">
+        <section className="xl:flex xl:py-10 xl:justify-center mb-3 gap-x-6">
           <div className="flex justify-center items-center py-5">
             <h3 className=" bg-secondary text-center text-4xl text-white w-[50px] h-[50px] rounded-full pt-1  ">
               1
@@ -71,8 +71,8 @@ function Accueil() {
         <section>
           <img src="./public/assets/fleuriste.jpeg" alt="fleuriste" />
         </section>
-        <section className="bg-white">
-          <h2 className="text-secondary text-center text-2xl font-bold pt-7">
+        <section className="bg-white pb-5">
+          <h2 className="text-secondary text-center text-2xl font-bold pt-12">
             Nos valeurs
           </h2>
 

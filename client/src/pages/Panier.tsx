@@ -121,7 +121,7 @@ function Panier() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col lg:flex-row gap-12 min-h-lvh">
+    <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col lg:flex-row gap-12 min-h-lvh bg-white">
       {/* Récapitulatif */}
       <div className="order-1 lg:order-2 w-full lg:w-[350px] bg-[#F5ECE6] p-6 rounded-xl shadow-md h-fit">
         <h3 className="text-xl font-semibold mb-4 text-[#B67152]">
