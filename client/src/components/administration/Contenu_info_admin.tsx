@@ -21,9 +21,9 @@ function Contenu_info_admin({ article }: ContenuAdministrationProps) {
       <section className="flex-col justify-items-left bg-[#EADED5] rounded-md relative px-5 pb-10 w-[90%] mx-auto overflow-visible mt-12">
         <article>
           <h3 className="font-bold pb-3">{article.flower.nom}</h3>
-          <p className="pb-3">{article.flower.description}</p>
-          <p>Quantité commandée : {article.quantity}</p>
-          <aside className="pb-3 font-bold">{article.flower.prix} €</aside>
+          <p className="font-light pb-3">{article.flower.description}</p>
+          <p className="font-light">Quantité commandée : {article.quantity}</p>
+          <aside className="pb-3 font-light">{article.flower.prix} €</aside>
         </article>
       </section>
     </>

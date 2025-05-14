@@ -79,14 +79,16 @@ function Administration() {
               {clients.some(
                 (user) => user.reservation && user.reservation.length > 0,
               ) ? (
-                <section className="pt-1 ">
+                <section className="pt-1">
                   {clients.map((user) =>
                     user.reservation && user.reservation.length > 0 ? (
                       <article
-                        className="mt-5 pb-4 pt-4 border-secondary border-1 rounded-md font-bold"
+                        className="mt-5 pt-4 pb-14 border-secondary border-1 rounded-md font-bold"
                         key={user.mail}
                       >
-                        <p className="text-center">{user.mail}</p>
+                        <a href={`mailto:${user.mail}`}>
+                          <p className="text-center">{user.mail}</p>
+                        </a>
 
                         {/* Liste des articles réservés */}
                         {user.reservation.map((article) => (
@@ -123,7 +125,9 @@ function Administration() {
                         className="mt-5 pb-4 pt-4 border-secondary border-1 rounded-md font-bold"
                         key={user.mail}
                       >
-                        <p className="text-center">{user.mail}</p>
+                        <a href={`mailto:${user.mail}`}>
+                          <p className="text-center">{user.mail}</p>
+                        </a>
 
                         {/* Liste des articles réservés */}
                         {user.validated?.map((article) => (
@@ -158,7 +162,9 @@ function Administration() {
                         className="mt-5 pb-4 pt-4 border-secondary border-1 rounded-md font-bold"
                         key={user.mail}
                       >
-                        <p className="text-center">{user.mail}</p>
+                        <a href={`mailto:${user.mail}`}>
+                          <p className="text-center">{user.mail}</p>
+                        </a>
 
                         {/* Liste des articles réservés */}
                         {user.refused?.map((article) => (
