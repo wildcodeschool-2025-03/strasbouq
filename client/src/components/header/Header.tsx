@@ -48,11 +48,13 @@ function Header() {
 
     let numberOfTotalItems = 0;
 
-    for (const article of user.panier) {
-      numberOfTotalItems += article.quantity;
-    }
+    if (user.panier != null) {
+      for (const article of user.panier) {
+        numberOfTotalItems += article.quantity;
+      }
 
-    setPanierQuantity(numberOfTotalItems);
+      setPanierQuantity(numberOfTotalItems);
+    }
 
     const handlePanierUpdate = (e: Event) => {
       const customEvent = e as CustomEvent<number>;
