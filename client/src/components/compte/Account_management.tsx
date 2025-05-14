@@ -58,7 +58,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
     else {
       const users = JSON.parse(storedData);
 
-      // ...Vérifie que l'adresse mail n'est pas déja renseignée 
+      // ...Vérifie que l'adresse mail n'est pas déja renseignée
       let isAlreadyExistant = false;
 
       for (const user of users) {
