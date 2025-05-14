@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 import AccordeonItem from "./AccordeonItem";
 
 interface itemsContenu {
@@ -36,7 +37,7 @@ function Accordeon() {
   useEffect(() => {
     const usersData = localStorage.getItem("users");
     if (usersData === null) {
-      alert("veuillez vous connecter");
+      toast.error("veuillez vous connecter");
       return;
     }
 
@@ -44,7 +45,7 @@ function Accordeon() {
 
     const userConnectedData = sessionStorage.getItem("currentUser");
     if (userConnectedData === null) {
-      alert("veuillez vous connecter");
+      toast.error("veuillez vous connecter");
       return;
     }
 
@@ -57,7 +58,7 @@ function Accordeon() {
   const seDeconnecter = () => {
     const deconnecter = sessionStorage.getItem("currentUser");
     if (deconnecter === null) {
-      alert("veuillez vous connecter");
+      toast.error("veuillez vous connecter");
       return;
     }
     sessionStorage.removeItem("currentUser");
@@ -89,7 +90,7 @@ function Accordeon() {
             ))}
           </ul>
         ) : (
-          <p className="pl-4">Pas de réservation en cours</p>
+          <p className="pl-4 ml-4">Pas de réservation en cour</p>
         )}
       </AccordeonItem>
 
@@ -106,7 +107,7 @@ function Accordeon() {
             ))}
           </ul>
         ) : (
-          <p className="pl-4">Pas de réservation en cours</p>
+          <p className="pl-4 ml-4">Pas de réservation refusée</p>
         )}
       </AccordeonItem>
 
@@ -123,7 +124,7 @@ function Accordeon() {
             ))}
           </ul>
         ) : (
-          <p className="pl-4">Pas de réservation en cours</p>
+          <p className="pl-4 ml-4">Aucun historique de réservation</p>
         )}
       </AccordeonItem>
 

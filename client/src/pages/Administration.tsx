@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 import Contenu_administration from "../components/administration/Contenu_administration";
 import Contenu_info_admin from "../components/administration/Contenu_info_admin";
 import AccordeonItem from "../components/compte/AccordeonItem";
@@ -42,7 +43,6 @@ function Administration() {
     const storedData = localStorage.getItem("users");
 
     if (!storedData) {
-      alert("Aucun client enregistré");
       return;
     }
 
@@ -62,7 +62,7 @@ function Administration() {
   const seDeconnecter = () => {
     const deconnecter = sessionStorage.getItem("currentUser");
     if (deconnecter === null) {
-      alert("Veuillez vous connecter");
+      toast.error("Veuillez vous connecter");
       return;
     }
     sessionStorage.removeItem("currentUser");
@@ -73,7 +73,7 @@ function Administration() {
     <section className="bg-white pt-10 pb-10 md:pb-80">
       <div className=" bg-primary md:justify-center md:flex md:flex-col md:items-center xl:justify-start xl:items-start xl:p-5">
         <div className="pt-5 ml-5 mr-5 pb-2 md:w-[90%] xl:pb-1">
-          <AccordeonItem title="Réservation à valider">
+          <AccordeonItem title="Réservations à valider">
             <div>
               {/* Liste des clients avec réservation */}
               {clients.some(

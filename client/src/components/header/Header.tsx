@@ -108,7 +108,7 @@ function Header() {
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="w-full bg-[#CE9170] text-white text-center py-2 text-base font-semibold"
       >
-        Sur tous les bouquets - Code promo :{" "}
+        -20% sur tous les bouquets - Code promo :{" "}
         <motion.span
           animate={{ scale: [1, 1.1, 1] }}
           transition={{
