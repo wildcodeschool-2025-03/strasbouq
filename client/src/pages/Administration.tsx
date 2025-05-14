@@ -172,7 +172,7 @@ function Administration() {
                   )}{" "}
                 </section>
               ) : (
-                <p>Pas de réservation refusée</p>
+                <p className="ml-4">Pas de réservation refusée</p>
               )}
             </div>
           </AccordeonItem>
@@ -182,7 +182,7 @@ function Administration() {
         <div className="text-center mt-10">
           <button
             type="button"
-            className="rounded-3xl w-46 py-2 border-2 mb-5 border-secondary cursor-pointer"
+            className="rounded-3xl w-46 py-2 border-2 mb-5 border-secondary cursor-pointer md:ml-9"
             onClick={seDeconnecter}
           >
             Se déconnecter
