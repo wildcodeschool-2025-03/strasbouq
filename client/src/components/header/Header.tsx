@@ -118,7 +118,7 @@ function Header() {
           }}
           className="inline-block text-white"
         >
-          WILD20
+          YAVUZ20
         </motion.span>
       </motion.div>
 
@@ -177,7 +177,7 @@ function Header() {
                 <i className="bi bi-cart text-2xl cursor-pointer" />
               </span>
             </button>
-            <span className="min-w-[1.4rem]">{panierQuantity}</span>
+            <span className="min-w-[1.4rem] text-center">{panierQuantity}</span>
           </article>
         </header>
       </section>

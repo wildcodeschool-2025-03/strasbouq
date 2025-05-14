@@ -99,10 +99,10 @@ function Contenu_administration({
     >
       <article className="bg-primary">
         <h3 className="font-bold pb-3">{article.flower.nom}</h3>
-        <p className="">Quantité commandée : {article.quantity}</p>
-        <aside className="pb-3 font-bold">{article.flower.prix} €</aside>
+        <p className="font-light">Quantité commandée : {article.quantity}</p>
+        <aside className="pb-3 font-light">{article.flower.prix} €</aside>
         <button
-          className="font-bold mr-4 cursor-pointer"
+          className="font-light mr-4 cursor-pointer"
           type="button"
           onClick={acceptBooking}
         >
@@ -110,7 +110,7 @@ function Contenu_administration({
           <i className="bi bi-check-circle text-green-500 " />
         </button>
         <button
-          className="font-bold cursor-pointer"
+          className="font-light cursor-pointer"
           type="button"
           onClick={refusedBooking}
         >
