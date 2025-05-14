@@ -71,18 +71,20 @@ function Accordeon() {
   };
 
   return (
-    <div className=" mt-4 w-[80%] ml-5 pb-4 md:w-[50%] xl:w-[40%] xl:pb-1">
+    <div className=" mt-4 pb-4 xl:pb-1 md:w-full w-[90%]">
       <AccordeonItem title="Mes informations">
-        <p className="pl-3">Mail: {currentUser?.mail}</p>
-        <p className="pl-3">Mot de passe: {currentUser?.password}</p>
+        <p className="pl-4">Mail: {currentUser?.mail}</p>
+        <p className="pl-4">Mot de passe: {currentUser?.password}</p>
       </AccordeonItem>
       <AccordeonItem title="Mes réservations en cours">
         {currentUser?.reservation && currentUser.reservation.length > 0 ? (
-          <ul className="list-disc list-inside space-y-2">
+          <ul className="list-inside space-y-6 list-none pl-4 mt-5 pb-4 pt-4 border-secondary border-1 rounded-md font-bold">
             {currentUser.reservation.map((article) => (
               <li key={article.flower.id}>
-                {article.flower.nom} – Prix : {article.flower.prix}€ – Quantité
-                : {article.quantity}
+                <p className="font-bold">{article.flower.nom} </p>
+                <p>
+                  Prix : {article.flower.prix}€ - Quantité : {article.quantity}
+                </p>
               </li>
             ))}
           </ul>
@@ -93,11 +95,13 @@ function Accordeon() {
 
       <AccordeonItem title="Mes réservations refusées">
         {currentUser?.refused && currentUser.refused.length > 0 ? (
-          <ul className="list-disc list-inside space-y-2">
+          <ul className="list-inside space-y-6 list-none pl-4 mt-5 pb-4 pt-4 border-secondary border-1 rounded-md font-bold">
             {currentUser.refused.map((article) => (
               <li key={article.flower.id}>
-                {article.flower.nom} – Prix : {article.flower.prix}€ – Quantité
-                : {article.quantity}
+                <p className="font-bold">{article.flower.nom} </p>
+                <p>
+                  Prix : {article.flower.prix}€ - Quantité : {article.quantity}
+                </p>
               </li>
             ))}
           </ul>
@@ -108,11 +112,13 @@ function Accordeon() {
 
       <AccordeonItem title="Historique de mes commandes">
         {currentUser?.validated && currentUser.validated.length > 0 ? (
-          <ul className="list-disc list-inside space-y-2">
+          <ul className="list-inside space-y-6 list-none pl-4 mt-5 pb-4 pt-4 border-secondary border-1 rounded-md font-bold">
             {currentUser.validated.map((article) => (
               <li key={article.flower.id}>
-                {article.flower.nom} – Prix : {article.flower.prix}€ – Quantité
-                : {article.quantity}
+                <p className="font-bold">{article.flower.nom} </p>
+                <p>
+                  Prix : {article.flower.prix}€ - Quantité : {article.quantity}
+                </p>
               </li>
             ))}
           </ul>
@@ -123,7 +129,7 @@ function Accordeon() {
 
       <button
         type="button"
-        className="rounded-3xl w-46 py-2 border-2 border-secondary mt-10"
+        className="rounded-3xl w-46 py-2 border-2 border-secondary mt-10 cursor-pointer"
         onClick={seDeconnecter}
       >
         Se déconnecter

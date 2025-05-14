@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 interface itemsContenu {
   id: number;
@@ -95,7 +95,7 @@ function Contenu({ item }: ContenuProps) {
   };
 
   return (
-    <section className="flex flex-col justify-between bg-[#EADED5] w-[300px] lg:w-auto min-h-140 rounded-md relative px-5 pt-70 pb-10 mx-auto overflow-visible">
+    <section className="flex flex-col justify-between bg-[#EADED5] w-[300px] lg:w-auto min-h-140 rounded-md relative px-5 pt-70 pb-10 mx-auto overflow-visible shadow-lg">
       <img
         className="absolute top-[-50px] left-[0px] w-full h-auto z-0 rounded-lg transition-all duration-300 hover:scale-110"
         src={item.image_url}
@@ -124,7 +124,6 @@ function Contenu({ item }: ContenuProps) {
           Ajouter <i className="bi bi-cart-plus text-2xl align-[-0.15rem]" />
         </button>
       </section>
-      <ToastContainer position="top-right" autoClose={3000} />
     </section>
   );
 }

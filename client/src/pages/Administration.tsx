@@ -70,123 +70,126 @@ function Administration() {
   };
 
   return (
-    <div className=" bg-primary  mt-10 md:justify-center md:flex md:flex-col md:items-center xl:justify-start xl:items-start xl:p-5">
-      <div className="pt-5 w-[80%] ml-5 pb-2 md:w-[50%] xl:w-[33%] xl:pb-1">
-        <AccordeonItem title="Réservation à valider">
-          <div>
-            <h1 className="font-semibold pt-1 ml-4">
-              Liste des réservations en cours :
-            </h1>
+    <section className="bg-white pt-10 pb-10 md:pb-80">
+      <div className=" bg-primary md:justify-center md:flex md:flex-col md:items-center xl:justify-start xl:items-start xl:p-5">
+        <div className="pt-5 ml-5 mr-5 pb-2 md:w-[90%] xl:pb-1">
+          <AccordeonItem title="Réservation à valider">
+            <div>
+              {/* Liste des clients avec réservation */}
+              {clients.some(
+                (user) => user.reservation && user.reservation.length > 0,
+              ) ? (
+                <section className="pt-1 ">
+                  {clients.map((user) =>
+                    user.reservation && user.reservation.length > 0 ? (
+                      <article
+                        className="mt-5 pb-4 pt-4 border-secondary border-1 rounded-md font-bold"
+                        key={user.mail}
+                      >
+                        <p className="text-center">{user.mail}</p>
 
-            {/* Liste des clients avec réservation */}
-            {clients.some(
-              (user) => user.reservation && user.reservation.length > 0,
-            ) ? (
-              <section className="pt-1 ">
-                {clients.map((user) =>
-                  user.reservation && user.reservation.length > 0 ? (
-                    <article className="pb-7" key={user.mail}>
-                      <p className="ml-4">{user.mail}</p>
+                        {/* Liste des articles réservés */}
+                        {user.reservation.map((article) => (
+                          <Contenu_administration
+                            article={article}
+                            user={user}
+                            updateClient={updateClient}
+                            key={article.flower.id}
+                          />
+                        ))}
+                      </article>
+                    ) : null,
+                  )}{" "}
+                </section>
+              ) : (
+                <p className="ml-4">Pas de réservation en attente</p>
+              )}
+            </div>
+          </AccordeonItem>
+        </div>
 
-                      {/* Liste des articles réservés */}
-                      {user.reservation.map((article) => (
-                        <Contenu_administration
-                          article={article}
-                          user={user}
-                          updateClient={updateClient}
-                          key={article.flower.id}
-                        />
-                      ))}
-                    </article>
-                  ) : null,
-                )}{" "}
-              </section>
-            ) : (
-              <p className="ml-4">Pas de réservation en attente</p>
-            )}
-          </div>
-        </AccordeonItem>
+        <div className="pt-5 ml-5 mr-5 pb-2 md:w-[90%] xl:pb-1">
+          <AccordeonItem title="Réservations acceptées">
+            <div>
+              {/* Liste des clients avec réservation acceptée */}
+
+              {clients.some(
+                (user) => user.validated && user.validated.length > 0,
+              ) ? (
+                <section className="pt-1">
+                  {clients.map((user) =>
+                    user.validated && user.validated.length > 0 ? (
+                      <article
+                        className="mt-5 pb-4 pt-4 border-secondary border-1 rounded-md font-bold"
+                        key={user.mail}
+                      >
+                        <p className="text-center">{user.mail}</p>
+
+                        {/* Liste des articles réservés */}
+                        {user.validated?.map((article) => (
+                          <Contenu_info_admin
+                            article={article}
+                            key={article.flower.id}
+                          />
+                        ))}
+                      </article>
+                    ) : null,
+                  )}{" "}
+                </section>
+              ) : (
+                <p className="ml-4">Pas de réservation acceptée</p>
+              )}
+            </div>
+          </AccordeonItem>
+        </div>
+
+        <div className="pt-5 ml-5 mr-5 pb-2 md:w-[90%] xl:pb-1">
+          <AccordeonItem title="Réservations refusées">
+            <div>
+              {/* Liste des clients avec réservation refusée */}
+
+              {clients.some(
+                (user) => user.refused && user.refused.length > 0,
+              ) ? (
+                <section className="pt-1">
+                  {clients.map((user) =>
+                    user.refused && user.refused.length > 0 ? (
+                      <article
+                        className="mt-5 pb-4 pt-4 border-secondary border-1 rounded-md font-bold"
+                        key={user.mail}
+                      >
+                        <p className="text-center">{user.mail}</p>
+
+                        {/* Liste des articles réservés */}
+                        {user.refused?.map((article) => (
+                          <Contenu_info_admin
+                            article={article}
+                            key={article.flower.id}
+                          />
+                        ))}
+                      </article>
+                    ) : null,
+                  )}{" "}
+                </section>
+              ) : (
+                <p>Pas de réservation refusée</p>
+              )}
+            </div>
+          </AccordeonItem>
+        </div>
+
+        {/* Le bouton Se Déconnecter est placé UNE SEULE FOIS */}
+        <div className="text-center mt-10">
+          <button
+            type="button"
+            className="rounded-3xl w-46 py-2 border-2 mb-5 border-secondary cursor-pointer"
+            onClick={seDeconnecter}
+          >
+            Se déconnecter
+          </button>
+        </div>
       </div>
-
-      <div className=" w-[80%] ml-5 pb-2 md:w-[50%] xl:w-[33%] xl:pb-1">
-        <AccordeonItem title="Réservations acceptées">
-          <div>
-            <h1 className="font-semibold pt-1 ml-4">
-              Liste des réservations acceptées :
-            </h1>
-            {/* Liste des clients avec réservation acceptée */}
-
-            {clients.some(
-              (user) => user.validated && user.validated.length > 0,
-            ) ? (
-              <section className="pt-1">
-                {clients.map((user) =>
-                  user.validated && user.validated.length > 0 ? (
-                    <article className="pb-7" key={user.mail}>
-                      <p className="ml-4">{user.mail}</p>
-
-                      {/* Liste des articles réservés */}
-                      {user.validated?.map((article) => (
-                        <Contenu_info_admin
-                          article={article}
-                          key={article.flower.id}
-                        />
-                      ))}
-                    </article>
-                  ) : null,
-                )}{" "}
-              </section>
-            ) : (
-              <p className="ml-4">Pas de réservation acceptée</p>
-            )}
-          </div>
-        </AccordeonItem>
-      </div>
-
-      <div className=" w-[80%] ml-5 md:w-[50%] xl:w-[33%] xl:pb-1">
-        <AccordeonItem title="Réservations refusées">
-          <div>
-            <h1 className="font-semibold pt-1 ml-4">
-              Liste des réservations refusées :
-            </h1>
-            {/* Liste des clients avec réservation refusée */}
-
-            {clients.some((user) => user.refused && user.refused.length > 0) ? (
-              <section className="pt-1">
-                {clients.map((user) =>
-                  user.refused && user.refused.length > 0 ? (
-                    <article className="pb-7" key={user.mail}>
-                      <p className="ml-4">{user.mail}</p>
-
-                      {/* Liste des articles réservés */}
-                      {user.refused?.map((article) => (
-                        <Contenu_info_admin
-                          article={article}
-                          key={article.flower.id}
-                        />
-                      ))}
-                    </article>
-                  ) : null,
-                )}{" "}
-              </section>
-            ) : (
-              <p>Pas de réservation refusée</p>
-            )}
-          </div>
-        </AccordeonItem>
-      </div>
-
-      {/* Le bouton Se Déconnecter est placé UNE SEULE FOIS */}
-      <div className="text-center mt-10">
-        <button
-          type="button"
-          className="rounded-3xl w-46 py-2 border-2 mb-5 border-secondary"
-          onClick={seDeconnecter}
-        >
-          Se déconnecter
-        </button>
-      </div>
-    </div>
+    </section>
   );
 }
 

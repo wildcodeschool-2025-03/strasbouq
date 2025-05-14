@@ -20,10 +20,16 @@ interface ContenuPanierProps {
   item: Article;
   updatePanier: (newPanier: Article[]) => void;
   panier: Article[];
+  quantity: number;
 }
 
 // Fonction
-function ContenuPanier({ item, updatePanier, panier }: ContenuPanierProps) {
+function ContenuPanier({
+  item,
+  updatePanier,
+  panier,
+  quantity,
+}: ContenuPanierProps) {
   const add = () => {
     const listUser = localStorage.getItem("users");
     if (listUser === null) return;
@@ -117,18 +123,21 @@ function ContenuPanier({ item, updatePanier, panier }: ContenuPanierProps) {
       />
       <div className="flex flex-col justify-between">
         <div>
-          <h4 className="text-lg font-medium">{item.flower.nom}</h4>
+          <h4 className="text-lg font-medium min-w-[10rem] md:min-w-[18rem]">
+            {item.flower.nom}
+          </h4>
         </div>
         <p className="text-[#B67152] font-bold">
           {item.flower.prix.toFixed(2)}€
         </p>
+        <p>x {quantity}</p>
       </div>
-      <div>
+      <div className="flex flex-col flex-start">
         <button type="button" onClick={add}>
-          Ajouter
+          <i className="bi bi-plus-circle text-2xl" />
         </button>
         <button type="button" onClick={supp}>
-          Supprimer
+          <i className="bi bi-dash-circle text-2xl" />
         </button>
       </div>
     </section>
