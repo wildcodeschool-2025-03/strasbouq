@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 interface itemsContenu {
   id: number;
   nom: string;
@@ -21,7 +23,7 @@ interface Utilisateur {
 export function getCurrentUserData() {
   const storedData = localStorage.getItem("users");
   if (storedData === null) {
-    alert("Aucun compte existant");
+    toast.error("Aucun compte existant");
     return;
   }
 
@@ -29,7 +31,7 @@ export function getCurrentUserData() {
 
   const userStoredData = sessionStorage.getItem("currentUser");
   if (userStoredData === null) {
-    alert("veuillez vous connecter");
+    toast.error("veuillez vous connecter");
     return;
   }
   const userConnected = JSON.parse(userStoredData);
