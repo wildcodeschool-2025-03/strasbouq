@@ -90,7 +90,7 @@ function Accordeon() {
             ))}
           </ul>
         ) : (
-          <p className="pl-4 ml-4">Pas de réservation en cour</p>
+          <p className="pl-4 ml-4">Pas de réservation en cours</p>
         )}
       </AccordeonItem>
 
