@@ -221,26 +221,26 @@ const BurgerMenufiltre = ({
   ];
 
   return (
-    <div className="relative">
+    <div className="relative" ref={menuRef}>
       <button
         type="button"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className="p-2  rounded-md flex items-center gap-2 "
+        className="p-2 rounded-md flex items-center gap-2 cursor-pointer"
       >
-        <h2 className="text-lg font-bold mb-4 ml-7 mt-2 flex items-center gap-x-3">
+        <h2 className="text-xl font-bold mb-4 mt-2 flex items-center gap-x-3">
           Filtrer <SlidersHorizontal color="#000000" strokeWidth={1.5} />
         </h2>
       </button>
 
       {isMenuOpen && (
-        <div ref={menuRef}>
+        <div>
           <aside className="absolute top-12 left-0 z-50 w-72 p-4 bg-white rounded-xl shadow-lg">
             {sections.map(({ title, content }) => (
               <div key={title} className="py-2 w-full">
                 <button
                   type="button"
                   onClick={() => toggleSection(title)}
-                  className="w-full flex items-center justify-between text-left font-medium text-gray-800 hover:text-black"
+                  className="w-full flex items-center justify-between text-left font-medium text-gray-800 hover:text-black cursor-pointer"
                 >
                   {title}
                   {openSection === title ? (
@@ -257,9 +257,9 @@ const BurgerMenufiltre = ({
             <button
               type="button"
               onClick={() => handleResetFilters()}
-              className="w-full text-center py-2 mt-4 bg-secondary rounded-4xl font-semibold transition-transform transform-gpu active:focus:outline-2 focus:outline-offset-2 focus:outline-[#ce9170] active:bg-white"
+              className="w-full text-white text-center py-2 mt-4 bg-secondary rounded-4xl font-semibold transition-transform transform-gpu active:focus:outline-2 focus:outline-offset-2 focus:outline-[#ce9170] active:bg-white cursor-pointer"
             >
-              Réinitialiser tous les filtres
+              Réinitialiser les filtres
             </button>
           </aside>
         </div>

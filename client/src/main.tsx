@@ -20,6 +20,7 @@ import Cgv from "./pages/Cgv";
 import Compte from "./pages/Compte";
 import Contact from "./pages/Contact";
 import Mentions from "./pages/Mentions";
+import Merci from "./pages/Merci";
 import Panier from "./pages/Panier";
 
 /* ************************************************************************* */
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: "/Panier",
         element: <Panier />,
+      },
+      {
+        path: "/Merci",
+        element: <Merci />,
       },
     ],
   },

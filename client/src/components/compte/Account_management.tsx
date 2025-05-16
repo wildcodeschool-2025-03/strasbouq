@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Account_management({ onClose }: { onClose: () => void }) {
@@ -51,14 +51,14 @@ function Account_management({ onClose }: { onClose: () => void }) {
     // Si aucun utilisateur n'existe encore, crée un tableau contenant l'objet utilisateur
     if (storedData === null) {
       localStorage.setItem("users", JSON.stringify([account]));
-      toast.success(`${mailInput}, votre compte a bien été crée !`);
+      toast.success(`${mailInput}, Votre compte a bien été créé avec succès !`);
     }
 
     // Si un ou plusieurs compte existent déja...
     else {
       const users = JSON.parse(storedData);
 
-      // ...Vérifie que l'adresse mail n'est pas déja renseignée --- CHECKER LA CASSE AUSSI
+      // ...Vérifie que l'adresse mail n'est pas déja renseignée
       let isAlreadyExistant = false;
 
       for (const user of users) {
@@ -67,7 +67,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
         }
       }
 
-      // Si oui, on annule la création de compte ---- MESSAGE ERREUR A FAIRE
+      // Si oui, on annule la création de compte
       if (isAlreadyExistant) {
         toast.error("Ce mail est déja utilisé !");
         return;
@@ -76,7 +76,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
       // Si non, on crée le nouveau compte
       users.push(account);
       localStorage.setItem("users", JSON.stringify(users));
-      toast.success(`${mailInput}, votre compte a bien été crée !`);
+      toast.success(`${mailInput}, Votre compte a bien été crée avec succès !`);
     }
 
     // Nettoie les inputs une fois le bouton cliqué
@@ -116,14 +116,29 @@ function Account_management({ onClose }: { onClose: () => void }) {
 
       if (user.mail === mailInput && user.password === passwordInput) {
         sessionStorage.setItem("currentUser", JSON.stringify(user));
-        navigate(0);
+
         onClose();
 
+        // Evenement changement nombre d'items dans le panier
+        let numberOfTotalItems = 0;
+
+        if (user.panier != null) {
+          for (const article of user.panier) {
+            numberOfTotalItems += article.quantity;
+          }
+
+          const event = new CustomEvent("panierUpdated", {
+            detail: numberOfTotalItems,
+          });
+          window.dispatchEvent(event);
+        }
+
+        navigate(0);
         return;
       }
     }
 
-    alert("Aucun compte trouvé - vérifiez votre login ou mot de passe");
+    toast.error("Aucun compte trouvé - vérifiez votre login ou mot de passe");
   };
 
   // -----------------------------------Fonction déconnexion---------------------------------------------------------
@@ -161,7 +176,7 @@ function Account_management({ onClose }: { onClose: () => void }) {
         <button
           type="button"
           onClick={createNewAccount}
-          className="bg-secondary text-black w-40 rounded-full mr-8"
+          className="bg-secondary text-white w-40 rounded-full mr-8 cursor-pointer"
         >
           Créer compte
         </button>
@@ -169,12 +184,10 @@ function Account_management({ onClose }: { onClose: () => void }) {
         <button
           type="button"
           onClick={loginToAccount}
-          className="bg-secondary text-black w-40 rounded-full"
+          className="bg-secondary text-white w-40 rounded-full cursor-pointer"
         >
           Se connecter
         </button>
-
-        <ToastContainer position="top-right" autoClose={3000} />
       </section>
     </>
   );

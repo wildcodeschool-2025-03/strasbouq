@@ -36,14 +36,15 @@ cd le-jardin-alsacien
 
 ### 2. Installer les dépendances
 
-npm install                            # Dépendances de base du projet (React, etc.)  
-npm install react-router               # Gestion des routes côté client  
-npm install tailwindcss                # Framework CSS utilitaire  
-npm install @tailwindcss/forms         # Plugin Tailwind pour styliser les formulaires  
-npm install framer-motion              # Animations fluides avec Framer Motion  
-npm install lucide-react               # Icônes vectorielles élégantes (Lucide)  
-npm install bootstrap-icons            # Icônes Bootstrap (utilisées dans le header, panier, etc.)  
-npm install react-toastify             # Notifications toast pour les alertes (connexion, panier, etc.)
+npm install                            # Dépendances de base du projet (React, ReactDOM, etc.)
+npm install react-router               # Gestion des routes côté client
+npm install tailwindcss                # Framework CSS utilitaire
+npm install @tailwindcss/forms         # Plugin Tailwind pour styliser les champs de formulaire
+npm install framer-motion              # Bibliothèque d'animations React
+npm install react-icons                # Bibliothèque d’icônes populaires pour React
+npm install lucide-react               # Icônes modernes et légères (Lucide)
+npm install bootstrap-icons            # Icônes Bootstrap utilisées dans le header, panier, etc.
+npm install react-toastify             # Affichage de notifications toast (panier, connexion, erreurs)
 
 ### 3. Configurer les variables d'environnement
 

@@ -1,15 +1,72 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect, useState } from "react";
 
 import Account_management from "../compte/Account_management";
+
+interface itemsContenu {
+  id: number;
+  nom: string;
+  description: string;
+  prix: number;
+  image_url: string;
+}
+
+interface Article {
+  flower: itemsContenu;
+  quantity: number;
+}
+
+interface Utilisateur {
+  mail: string;
+  panier: Article[];
+}
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [panierQuantity, setPanierQuantity] = useState(0);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Affiche le nombre d'items dans le panier lorsqu'on se connecte pour la première fois
+
+    const listUser = localStorage.getItem("users");
+    if (listUser === null) return;
+
+    const users: Utilisateur[] = JSON.parse(listUser);
+
+    const userConnected = sessionStorage.getItem("currentUser");
+    if (userConnected === null) return;
+
+    const connected = JSON.parse(userConnected);
+
+    const user = users.find((u) => u.mail === connected.mail);
+    if (!user) return;
+
+    let numberOfTotalItems = 0;
+
+    if (user.panier != null) {
+      for (const article of user.panier) {
+        numberOfTotalItems += article.quantity;
+      }
+
+      setPanierQuantity(numberOfTotalItems);
+    }
+
+    const handlePanierUpdate = (e: Event) => {
+      const customEvent = e as CustomEvent<number>;
+      setPanierQuantity(customEvent.detail);
+    };
+
+    window.addEventListener("panierUpdated", handlePanierUpdate);
+
+    return () => {
+      window.removeEventListener("panierUpdated", handlePanierUpdate);
+    };
+  }, []);
 
   const handleCloseModal = () => setIsModalOpen(false);
 
@@ -51,7 +108,7 @@ function Header() {
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="w-full bg-[#CE9170] text-white text-center py-2 text-base font-semibold"
       >
-        Sur tous les bouquets - Code promo :{" "}
+        -20% sur tous les bouquets - Code promo :{" "}
         <motion.span
           animate={{ scale: [1, 1.1, 1] }}
           transition={{
@@ -61,33 +118,33 @@ function Header() {
           }}
           className="inline-block text-white"
         >
-          wild20
+          YAVUZ20
         </motion.span>
       </motion.div>
 
       <section className="relative">
-        <header className="grid grid-cols-[auto_1fr_auto] items-center px-4 py-2 bg-white-100 z-10">
+        <header className="grid grid-cols-[auto_1fr_auto] items-center px-4 py-2 bg-white z-10">
           <article className="justify-self-start">
             <button
               type="button"
-              className="pl-2 block md:hidden"
+              className="pl-2 block md:hidden hover:scale-110"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <i className="bi bi-list text-3xl" />
             </button>
             <nav className="pl-10 hidden md:block">
               <ul className="flex gap-16">
-                <li>
+                <li className="hover:scale-110">
                   <Link to="/">Accueil</Link>
                 </li>
-                <li>
+                <li className="hover:scale-110">
                   <Link to="/Catalogue">Catalogue</Link>
                 </li>
               </ul>
             </nav>
           </article>
 
-          <article className="justify-self-center">
+          <article className="justify-self-center mb-8 mt-4">
             <Link to="/">
               <img
                 src="./assets/Logo-jardin-alsacien.png"
@@ -98,7 +155,7 @@ function Header() {
           </article>
 
           <article className="flex flex-col md:flex-row justify-self-end items-center md:pr-10">
-            <div className="hidden md:block md:mr-16">
+            <div className="hidden md:block md:mr-16 hover:scale-110">
               <Link to="/About">À propos</Link>
             </div>
 
@@ -107,21 +164,25 @@ function Header() {
               onClick={handleAccountClick}
               className="md:mr-4"
             >
-              {sessionStorage.getItem("currentUser") ? (
-                <i className="bi bi-person-fill-check text-2xl" />
-              ) : (
-                <i className="bi bi-person text-2xl" />
-              )}
+              <span className="inline-block transition-transform hover:scale-110">
+                {sessionStorage.getItem("currentUser") ? (
+                  <i className="bi bi-person-fill-check text-2xl cursor-pointer" />
+                ) : (
+                  <i className="bi bi-person text-2xl cursor-pointer" />
+                )}
+              </span>
             </button>
-
-            <button type="button" onClick={handleCartClick} className="md:mr-4">
-              <i className="bi bi-cart text-2xl" />
+            <button type="button" onClick={handleCartClick}>
+              <span className="inline-block transition-transform hover:scale-110">
+                <i className="bi bi-cart text-2xl cursor-pointer" />
+              </span>
             </button>
+            <span className="min-w-[1.4rem] text-center">{panierQuantity}</span>
           </article>
         </header>
       </section>
       <div className="text-contain">
-        <hr className="my-8 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-75 dark:via-neutral-800" />
+        <hr className="h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-75 dark:via-neutral-800" />
       </div>
 
       {isMenuOpen && (
@@ -199,8 +260,6 @@ function Header() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      <ToastContainer position="top-left" autoClose={1500} />
     </>
   );
 }
